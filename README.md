@@ -1,4 +1,4 @@
-# .net-research
-Demons for .net tech 
+# dotnet-research
+Demons for dotnet tech 
 
 like Asp.net  Wpf  Wcf winform  

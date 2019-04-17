@@ -1,0 +1,10 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:UwpApp.Theme.Default">
+    <Color x:Key="TitleBarBackgroud">#bc2f2e</Color>
+    <Color x:Key="InactiveTitleBarBackgroud">#b57171</Color>
+    <Color x:Key="TitleBarButtonBackground">#bc2f2e</Color>
+    <Color x:Key="InactiveTitleBarButtonBackground">#b57171</Color>
+    <Color x:Key="TitleBarButtonHoverBackgroud">#e81023</Color>
+</ResourceDictionary>

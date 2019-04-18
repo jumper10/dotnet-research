@@ -19,7 +19,7 @@
             IsBackButtonVisible="Collapsed"
             PaneOpened="NavView_PaneOpened"
             PaneClosed="NavView_PaneClosed"
-            
+              PaneDisplayMode="Left"
             Background="{ThemeResource LeftMenuBackgroud}"
             >
 
@@ -34,6 +34,7 @@
             <Frame  Grid.Column="1"
             x:Name="contentFrame"
             Margin="0,0,0,0"
+          
             Background="{ThemeResource MainFrameBackgroud}">
                 <Frame.ContentTransitions>
                     <TransitionCollection>

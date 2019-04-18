@@ -39,12 +39,12 @@ namespace UwpApp.Views
 
         private void NavView_PaneOpened(NavigationView sender, object args)
         {
-            contentFrame.Margin = new Thickness(sender.OpenPaneLength,0,0,0);
+           // contentFrame.Margin = new Thickness(sender.OpenPaneLength,0,0,0);
         }
 
         private void NavView_PaneClosed(NavigationView sender, object args)
         {
-            contentFrame.Margin = new Thickness(sender.CompactPaneLength, 0, 0, 0);
+          //  contentFrame.Margin = new Thickness(sender.CompactPaneLength, 0, 0, 0);
         }
     }
 }

@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<VoiceCommands xmlns="http://schemas.microsoft.com/voicecommands/1.1">
+
+  <!--<CommandSet xml:lang="en-us" Name="NeteaseCloudMusicCommandSet_en-us">
+    <CommandPrefix>CloudMusic</CommandPrefix>
+    <Example>CloudMusic Launch</Example>
+
+    <Command Name="launchApp">
+      <Example>Launch</Example>
+      <ListenFor>Launch</ListenFor>
+      <Feedback>Launch CloudMusic</Feedback>
+      <Navigate/>
+    </Command>
+  </CommandSet>-->
+
+  <CommandSet xml:lang="zh-cn" Name="NeteaseCloudMusicCommandSet_zh-cn">
+    <CommandPrefix>云音乐</CommandPrefix>
+    <Example>打开/私人FM</Example>
+
+    <Command Name="launchApp">
+      <Example>打开</Example>
+      <ListenFor>打开</ListenFor>
+      <Feedback>打开 网易云音乐</Feedback>
+      <Navigate/>
+    </Command>
+    <Command Name="launchFM">
+      <Example>私人FM</Example>
+      <ListenFor>私人FM</ListenFor>
+      <Feedback>打开 私人FM</Feedback>
+      <Navigate/>
+    </Command>
+  </CommandSet>
+
+  <!-- Other CommandSets for other languages -->
+
+</VoiceCommands>

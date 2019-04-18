@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using UwpApp.Views;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.ApplicationModel.Core;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.UI.Core;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -36,7 +38,7 @@ namespace UwpApp
            
         }
 
-        private void App_UnhandledException(object sender, UnhandledExceptionEventArgs e)
+        private void App_UnhandledException(object sender, Windows.UI.Xaml.UnhandledExceptionEventArgs e)
         {
             System.Diagnostics.Debug.WriteLine($"UnhandledException:{e.Message}{Environment.NewLine}");
             System.Diagnostics.Debug.WriteLine($"UnhandledException:{e.Exception.StackTrace}{Environment.NewLine}");
@@ -79,7 +81,7 @@ namespace UwpApp
                     // 当导航堆栈尚未还原时，导航到第一页，
                     // 并通过将所需信息作为导航参数传入来配置
                     // 参数
-                    rootFrame.Navigate(typeof(MainPage), e.Arguments);
+                    rootFrame.Navigate(typeof(MainShell), e.Arguments);
                 }
                 // 确保当前窗口处于活动状态
                 Window.Current.Activate();
@@ -128,7 +130,7 @@ namespace UwpApp
             titleBar.InactiveBackgroundColor = ApplicationContext.InactiveTitleBarBackgroud;
             titleBar.ButtonInactiveBackgroundColor = ApplicationContext.InactiveTitleBarButtonBackground;
             titleBar.ButtonHoverForegroundColor = ApplicationContext.TitleBarForegroud;
-            titleBar.ButtonInactiveForegroundColor = ApplicationContext.TitleBarForegroud;
+            titleBar.ButtonInactiveForegroundColor = ApplicationContext.TitleBarForegroud;           
         }
 
     }

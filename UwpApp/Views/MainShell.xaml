@@ -1,0 +1,58 @@
+﻿<Page
+    x:Class="UwpApp.Views.MainShell"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:UwpApp.Views" 
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"  
+    >
+    <Grid  x:Name="LayoutRoot"
+        Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="60"/>
+        </Grid.RowDefinitions>
+        <NavigationView 
+            x:Name="NavView"
+            OpenPaneLength="192"
+            IsBackButtonVisible="Collapsed"
+            PaneOpened="NavView_PaneOpened"
+            PaneClosed="NavView_PaneClosed"
+            
+            Background="{ThemeResource LeftMenuBackgroud}"
+            >
+
+            <NavigationView.MenuItems>
+                <NavigationViewItemHeader Content="Section A" />
+                <NavigationViewItem Content="Item 01"  />
+                <NavigationViewItemHeader Content="Section A" VerticalAlignment="Bottom" />
+                <NavigationViewItem Content="Item 01" VerticalAlignment="Bottom"/>
+
+            </NavigationView.MenuItems>
+           
+            <Frame  Grid.Column="1"
+            x:Name="contentFrame"
+            Margin="0,0,0,0"
+            Background="{ThemeResource MainFrameBackgroud}">
+                <Frame.ContentTransitions>
+                    <TransitionCollection>
+                        <NavigationThemeTransition>
+                            <NavigationThemeTransition.DefaultNavigationTransitionInfo>
+                                <EntranceNavigationTransitionInfo/>
+                            </NavigationThemeTransition.DefaultNavigationTransitionInfo>
+                        </NavigationThemeTransition>
+                    </TransitionCollection>
+                </Frame.ContentTransitions>
+
+            </Frame>
+
+        </NavigationView>
+
+        <CommandBar x:Name="CommandBar"
+                    Grid.Row="1"
+                    Background="{ThemeResource CommandBarBackgroud}">
+
+        </CommandBar>
+    </Grid>
+</Page>

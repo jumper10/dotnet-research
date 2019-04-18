@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using CommonLibrary.ViewModel;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Wpf_research
 {
@@ -19,7 +15,7 @@ namespace Wpf_research
                 if (value != _title)
                 {
                     _title = value;
-                    this.RaisePropertyChanged();
+                    this.OnPropertyChanged();
                 }
             }
         }
@@ -33,7 +29,7 @@ namespace Wpf_research
                 if (value != _isExpanded)
                 {
                     _isExpanded = value;
-                    this.RaisePropertyChanged("IsExpanded");
+                    this.OnPropertyChanged("IsExpanded");
                 }
             }
         }
@@ -47,7 +43,7 @@ namespace Wpf_research
                 if (value != _isSelected)
                 {
                     _isSelected = value;
-                    this.RaisePropertyChanged("IsSelected");
+                    this.OnPropertyChanged("IsSelected");
                 }
             }
         }

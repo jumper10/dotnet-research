@@ -1,12 +1,15 @@
 ﻿<ResourceDictionary
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:UwpApp.Theme.Default">
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <Color x:Key="TitleBarBackgroud">#bc2f2e</Color>
     <Color x:Key="InactiveTitleBarBackgroud">#b57171</Color>
     <Color x:Key="TitleBarForegroud">#ffff</Color>
     <Color x:Key="TitleBarButtonBackground">#bc2f2e</Color>
     <Color x:Key="InactiveTitleBarButtonBackground">#b57171</Color>
     <Color x:Key="TitleBarButtonHoverBackgroud">#e81023</Color>
-    
+
+    <SolidColorBrush x:Key="LeftMenuBackgroud" Color="#f3f3f5 "/>
+    <SolidColorBrush x:Key="MainFrameBackgroud" Color="#fafafc"/>
+    <SolidColorBrush x:Key="CommandBarBackgroud" Color="#ffffff"/>
+
 </ResourceDictionary>

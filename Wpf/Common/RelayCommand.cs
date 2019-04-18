@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Input;
 
-namespace Wpf_research
+namespace Wpf_research.Common
 {
     public class RelayCommand : ICommand
     {
@@ -11,17 +11,17 @@ namespace Wpf_research
             remove { CommandManager.RequerySuggested -= value; }
         }
 
-        public Func<object,bool> canExecute;
+        public Func<object, bool> canExecute;
         public Action<object> execute;
 
-        public  bool CanExecute(object parameter)
+        public bool CanExecute(object parameter)
         {
             if (this.canExecute == null) return true;
 
             return this.canExecute(parameter);
         }
 
-        public  void Execute(object parameter)
+        public void Execute(object parameter)
         {
             this.execute(parameter);
         }

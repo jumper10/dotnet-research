@@ -8,7 +8,7 @@
     mc:Ignorable="d"  
     >
     <Grid  x:Name="LayoutRoot"
-        Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        >
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
             <RowDefinition Height="60"/>
@@ -16,20 +16,83 @@
         <NavigationView 
             x:Name="NavView"
             OpenPaneLength="192"
-            IsBackButtonVisible="Collapsed"
-            PaneOpened="NavView_PaneOpened"
-            PaneClosed="NavView_PaneClosed"
-              PaneDisplayMode="Left"
-            Background="{ThemeResource LeftMenuBackgroud}"
-            >
+            CompactPaneLength="44"
+            IsBackButtonVisible="Collapsed"           
+            PaneDisplayMode="Left" 
+            IsSettingsVisible="False">
+           
+            <NavigationView.MenuItems >
+                
+                <NavigationViewItem Content="搜索" x:Name="SearchItem">
+                    <NavigationViewItem.Icon>
+                        <FontIcon Glyph="&#xE71E;"></FontIcon>
+                    </NavigationViewItem.Icon>
+                </NavigationViewItem>
+                <NavigationViewItem Content="发现音乐" >
+                    <NavigationViewItem.Icon>
+                        <FontIcon Glyph="&#xE8D6;"></FontIcon>
+                    </NavigationViewItem.Icon>
+                </NavigationViewItem>
+                <NavigationViewItem Content="MV" >
+                    <NavigationViewItem.Icon>
+                        <FontIcon Glyph="&#xE8B2;"></FontIcon>
+                    </NavigationViewItem.Icon>
+                </NavigationViewItem>
+                <NavigationViewItem Content="朋友" >
+                    <NavigationViewItem.Icon>
+                        <FontIcon Glyph="&#xE716;"></FontIcon>
+                    </NavigationViewItem.Icon>
+                </NavigationViewItem>
+                <NavigationViewItemHeader Content="我的音乐" />
+                <NavigationViewItem Content="本地音乐" >
+                    <NavigationViewItem.Icon>
+                        <FontIcon Glyph="&#xE90B;"></FontIcon>
+                    </NavigationViewItem.Icon>
+                </NavigationViewItem>
+                <NavigationViewItem Content="下载管理" >
+                    <NavigationViewItem.Icon>
+                        <FontIcon Glyph="&#xE802;"></FontIcon>
+                    </NavigationViewItem.Icon>
+                </NavigationViewItem>
+                <NavigationViewItem Content="最近播放" >
+                    <NavigationViewItem.Icon>
+                        <FontIcon Glyph="&#xE81C;"></FontIcon>
+                    </NavigationViewItem.Icon>
+                </NavigationViewItem>
 
-            <NavigationView.MenuItems>
-                <NavigationViewItemHeader Content="Section A" />
-                <NavigationViewItem Content="Item 01"  />
-                <NavigationViewItemHeader Content="Section A" VerticalAlignment="Bottom" />
-                <NavigationViewItem Content="Item 01" VerticalAlignment="Bottom"/>
 
+                <NavigationViewItemHeader >
+                    <StackPanel Orientation="Horizontal"
+                            Margin="-0,0,0,0"
+                            Width="{Binding ElementName=SearchItem,Path=ActualWidth}" >
+
+                        <TextBlock Text="xx"/>
+                        <AppBarButton Width="30" Height="30" Icon="Add" Margin="20,0,2,0" HorizontalAlignment="Right"/>
+                    </StackPanel>
+                </NavigationViewItemHeader>
+                <NavigationViewItemHeader Content="创建歌单" />
+                <AppBarButton Width="30" Height="30" Icon="Add" Margin="20,0,2,0" HorizontalAlignment="Right"/>
+               
+
+               
+                    <NavigationViewItem Content="我喜欢的音乐"  Margin="0" Padding="0">
+                        <NavigationViewItem.Icon>
+                            <FontIcon Glyph="&#xEB51;"></FontIcon>
+                        </NavigationViewItem.Icon>
+                    </NavigationViewItem>
+                    <NavigationViewItem Content="音乐集"  Margin="0" Padding="0">
+                        <NavigationViewItem.Icon>
+                            <FontIcon Glyph="&#xEA69;"></FontIcon>
+                        </NavigationViewItem.Icon>
+                    </NavigationViewItem>
             </NavigationView.MenuItems>
+
+            <NavigationView.PaneFooter >
+                <StackPanel Orientation="Horizontal" Margin="0" Background="LightCoral">
+                    <NavigationViewItemHeader Content="创建歌单" Margin="0"/>
+                    <AppBarButton Icon="Add"/>
+                </StackPanel>
+            </NavigationView.PaneFooter>
            
             <Frame  Grid.Column="1"
             x:Name="contentFrame"

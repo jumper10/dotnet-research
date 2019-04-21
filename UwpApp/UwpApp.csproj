@@ -95,8 +95,20 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="BootStrap.cs" />
     <Compile Include="Comon\ApplicationContext.cs" />
     <Compile Include="Comon\ResourceUtil.cs" />
+    <Compile Include="NavigationService.cs" />
+    <Compile Include="ViewModels\DownloadPageViewModel.cs" />
+    <Compile Include="ViewModels\FriendPageViewModel.cs" />
+    <Compile Include="ViewModels\RecentlyPageViewModel.cs" />
+    <Compile Include="ViewModels\SearchPageViewModel.cs" />
+    <Compile Include="ViewModels\MVPageViewModel.cs" />
+    <Compile Include="ViewModels\DiscoverPageViewModel.cs" />
+    <Compile Include="ViewModels\LocalPageViewModel.cs" />
+    <Compile Include="ViewModels\MainShellViewModel.cs" />
+    <Compile Include="ViewModels\UWPViewModelBase.cs" />
+    <Compile Include="ViewModels\ViewModelLocator.cs" />
     <Compile Include="Views\DiscoverPage.xaml.cs">
       <DependentUpon>DiscoverPage.xaml</DependentUpon>
     </Compile>
@@ -150,6 +162,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="Theme\AppCore.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Theme\Default\NavigationView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -206,6 +222,12 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
       <Version>6.1.4</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Toolkit.Uwp.UI">
+      <Version>5.1.1</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Xaml.Behaviors.Uwp.Managed">
+      <Version>2.0.0</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>

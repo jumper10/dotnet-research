@@ -5,7 +5,11 @@
     xmlns:local="using:UwpApp.Views" 
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d"  
+    xmlns:i="using:Microsoft.Xaml.Interactivity"
+    xmlns:core="using:Microsoft.Xaml.Interactions.Core"
+    xmlns:vm="using:UwpApp.ViewModels"
+    mc:Ignorable="d" 
+    DataContext="{Binding MainShellViewModel, Source={StaticResource Locator} }"
     >
     <Grid  x:Name="LayoutRoot"
         >
@@ -17,44 +21,52 @@
             x:Name="NavView"
             OpenPaneLength="192"
             CompactPaneLength="44"
-            IsBackButtonVisible="Collapsed"           
+            IsBackButtonVisible="Collapsed"    
             PaneDisplayMode="Left" 
             IsSettingsVisible="False">
-           
+            <i:Interaction.Behaviors>
+                <core:EventTriggerBehavior EventName="ItemInvoked">
+                    <core:EventTriggerBehavior.Actions>
+                        <core:InvokeCommandAction Command="{x:Bind ViewModel.ItemInvokedCommand}"/>
+                    </core:EventTriggerBehavior.Actions>
+                </core:EventTriggerBehavior>
+            </i:Interaction.Behaviors>
+
             <NavigationView.MenuItems >
                 
-                <NavigationViewItem Content="搜索" x:Name="SearchItem">
+                <NavigationViewItem Content="搜索" x:Name="SearchItem"  
+                                    Tag="{x:Bind vm:ViewModelLocator.SearchPage}">
                     <NavigationViewItem.Icon>
                         <FontIcon Glyph="&#xE71E;"></FontIcon>
                     </NavigationViewItem.Icon>
                 </NavigationViewItem>
-                <NavigationViewItem Content="发现音乐" >
+                <NavigationViewItem Content="发现音乐" Tag="{x:Bind vm:ViewModelLocator.DiscoverPage}">
                     <NavigationViewItem.Icon>
                         <FontIcon Glyph="&#xE8D6;"></FontIcon>
                     </NavigationViewItem.Icon>
                 </NavigationViewItem>
-                <NavigationViewItem Content="MV" >
+                <NavigationViewItem Content="MV" Tag="{x:Bind vm:ViewModelLocator.MVPage}">
                     <NavigationViewItem.Icon>
                         <FontIcon Glyph="&#xE8B2;"></FontIcon>
                     </NavigationViewItem.Icon>
                 </NavigationViewItem>
-                <NavigationViewItem Content="朋友" >
+                <NavigationViewItem Content="朋友" Tag="{x:Bind vm:ViewModelLocator.FriendPage}">
                     <NavigationViewItem.Icon>
                         <FontIcon Glyph="&#xE716;"></FontIcon>
                     </NavigationViewItem.Icon>
                 </NavigationViewItem>
                 <NavigationViewItemHeader Content="我的音乐" />
-                <NavigationViewItem Content="本地音乐" >
+                <NavigationViewItem Content="本地音乐" Tag="{x:Bind vm:ViewModelLocator.LocalPage}">
                     <NavigationViewItem.Icon>
                         <FontIcon Glyph="&#xE90B;"></FontIcon>
                     </NavigationViewItem.Icon>
                 </NavigationViewItem>
-                <NavigationViewItem Content="下载管理" >
+                <NavigationViewItem Content="下载管理" Tag="{x:Bind vm:ViewModelLocator.DownloadPage}">
                     <NavigationViewItem.Icon>
                         <FontIcon Glyph="&#xE802;"></FontIcon>
                     </NavigationViewItem.Icon>
                 </NavigationViewItem>
-                <NavigationViewItem Content="最近播放" >
+                <NavigationViewItem Content="最近播放" Tag="{x:Bind vm:ViewModelLocator.RecentlyPage}">
                     <NavigationViewItem.Icon>
                         <FontIcon Glyph="&#xE81C;"></FontIcon>
                     </NavigationViewItem.Icon>
@@ -113,10 +125,15 @@
 
         </NavigationView>
 
-        <CommandBar x:Name="CommandBar"
-                    Grid.Row="1"
-                    Background="{ThemeResource CommandBarBackgroud}">
-
-        </CommandBar>
+        <StackPanel Orientation="Horizontal" Grid.Row="1" Background="{ThemeResource CommandBarBackgroud}">
+            <Button ToolTipService.ToolTip="Play">
+                <SymbolIcon Symbol="Play">
+                </SymbolIcon>
+            </Button>
+            <Button ToolTipService.ToolTip="Play">
+                <SymbolIcon Symbol="Stop">
+                </SymbolIcon>
+            </Button>
+        </StackPanel>
     </Grid>
 </Page>

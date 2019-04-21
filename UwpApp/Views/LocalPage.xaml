@@ -9,6 +9,10 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid>
+        <StackPanel>
+            <MediaPlayerElement Height="400" Width="600"/>
+        </StackPanel>
+        
         <TextBlock Text="LocalPage" FontSize="38" VerticalAlignment="Center" HorizontalAlignment="Center"/>
     </Grid>
 </Page>

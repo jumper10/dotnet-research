@@ -1,8 +1,11 @@
-﻿using System;
+﻿using Microsoft.Toolkit.Uwp.UI.Converters;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using UwpApp.ViewModels;
+using ViewModels;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Core;
@@ -24,27 +27,22 @@ namespace UwpApp.Views
     /// </summary>
     public sealed partial class MainShell : Page
     {
+        public MainShellViewModel ViewModel
+        {
+            get { return this.DataContext as MainShellViewModel; }
+        }
+
         public MainShell()
         {
             this.InitializeComponent();
            
             Loaded += (sender, e) => {
-
-                var currentView = SystemNavigationManager.GetForCurrentView();
-                currentView.AppViewBackButtonVisibility = AppViewBackButtonVisibility.Visible;
-
-                contentFrame.Navigate(typeof(DiscoverPage));
+               
+                if (ViewModel != null)
+                {
+                    ViewModel.OnLoaded(contentFrame);
+                }
             };
-        }
-
-        private void NavView_PaneOpened(NavigationView sender, object args)
-        {
-           // contentFrame.Margin = new Thickness(sender.OpenPaneLength,0,0,0);
-        }
-
-        private void NavView_PaneClosed(NavigationView sender, object args)
-        {
-          //  contentFrame.Margin = new Thickness(sender.CompactPaneLength, 0, 0, 0);
         }
     }
 }

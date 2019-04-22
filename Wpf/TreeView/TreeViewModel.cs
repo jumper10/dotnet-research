@@ -1,4 +1,6 @@
-﻿using CommonLibrary.ViewModel;
+﻿
+using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.Command;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -25,17 +27,16 @@ namespace Wpf_research
         {
             get
             {
-                return new RelayCommand
+                return new RelayCommand<object>((obj) =>
                 {
-                    canExecute = (obj) => { return true; },
-                    execute = (obj) => {
-                        var item = SearchById(Id);
-                        if (item.Parent != null) item.Parent.IsExpanded = true;
+                    var item = SearchById(Id);
+                    if (item.Parent != null) item.Parent.IsExpanded = true;
 
-                        if (item != null)
-                            item.IsSelected = true;
-                    }
-                };
+                    if (item != null)
+                        item.IsSelected = true;
+                },
+                    (obj) => { return true; }, true
+               );
             }
         }
 

@@ -1,9 +1,10 @@
-﻿using CommonLibrary.ViewModel;
+﻿
+using GalaSoft.MvvmLight;
 using System.Collections.ObjectModel;
 
 namespace Wpf_research
 {
-    public class TreeViewItemModel:ViewModelBase
+    public class TreeViewItemModel: ObservableObject
     {
         public int Id { get; set; }
         string _title;
@@ -14,8 +15,7 @@ namespace Wpf_research
             {
                 if (value != _title)
                 {
-                    _title = value;
-                    this.OnPropertyChanged();
+                    Set("Title", ref _title, value);
                 }
             }
         }
@@ -28,8 +28,7 @@ namespace Wpf_research
             {
                 if (value != _isExpanded)
                 {
-                    _isExpanded = value;
-                    this.OnPropertyChanged("IsExpanded");
+                    Set("IsExpanded", ref _isExpanded, value);
                 }
             }
         }
@@ -42,8 +41,7 @@ namespace Wpf_research
             {
                 if (value != _isSelected)
                 {
-                    _isSelected = value;
-                    this.OnPropertyChanged("IsSelected");
+                    Set("IsSelected", ref _isSelected, value);
                 }
             }
         }

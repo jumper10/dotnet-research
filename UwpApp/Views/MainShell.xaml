@@ -8,7 +8,7 @@
     xmlns:i="using:Microsoft.Xaml.Interactivity"
     xmlns:core="using:Microsoft.Xaml.Interactions.Core"
     xmlns:vm="using:UwpApp.ViewModels"
-    mc:Ignorable="d" 
+    mc:Ignorable="d"
     DataContext="{Binding MainShellViewModel, Source={StaticResource Locator} }"
     >
     <Grid  x:Name="LayoutRoot"
@@ -83,10 +83,7 @@
                     </StackPanel>
                 </NavigationViewItemHeader>
                 <NavigationViewItemHeader Content="创建歌单" />
-                <AppBarButton Width="30" Height="30" Icon="Add" Margin="20,0,2,0" HorizontalAlignment="Right"/>
-               
-
-               
+                <AppBarButton Width="30" Height="30" Icon="Add" Margin="20,0,2,0" HorizontalAlignment="Right"/>   
                     <NavigationViewItem Content="我喜欢的音乐"  Margin="0" Padding="0">
                         <NavigationViewItem.Icon>
                             <FontIcon Glyph="&#xEB51;"></FontIcon>
@@ -125,15 +122,48 @@
 
         </NavigationView>
 
-        <StackPanel Orientation="Horizontal" Grid.Row="1" Background="{ThemeResource CommandBarBackgroud}">
-            <Button ToolTipService.ToolTip="Play">
-                <SymbolIcon Symbol="Play">
-                </SymbolIcon>
-            </Button>
-            <Button ToolTipService.ToolTip="Play">
-                <SymbolIcon Symbol="Stop">
-                </SymbolIcon>
-            </Button>
-        </StackPanel>
+        <CommandBar Grid.Row="1" HorizontalContentAlignment="Left"
+                    Background="#ffffff" VerticalAlignment="Center"
+                    OverflowButtonVisibility="Collapsed">
+            <AppBarButton FontSize="36" ToolTipService.ToolTip="Previous"
+                          Command="{Binding PreviousCommand}">
+                <SymbolIcon Symbol="Previous" />
+            </AppBarButton>
+            <AppBarToggleButton ToolTipService.ToolTip="Play"  
+                                Command="{Binding PlayCommand}">
+                <SymbolIcon Symbol="Play"/>
+            </AppBarToggleButton>
+            <AppBarButton FontSize="36" ToolTipService.ToolTip="Next"
+                          Command="{Binding NextCommand}">
+                <SymbolIcon Symbol="Next" />
+            </AppBarButton>
+            <AppBarElementContainer Width="292">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>                    
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="实例1" Width="223"/>
+                        <TextBlock Text="8:50/9:50"/>
+                    </StackPanel>
+                <Slider Grid.Row="1" Width="292"></Slider>
+                </Grid>
+            </AppBarElementContainer>
+            <AppBarButton FontSize="36" ToolTipService.ToolTip="LikeCommand">
+                <SymbolIcon Symbol="Like" />
+            </AppBarButton>
+            <AppBarButton FontSize="36" ToolTipService.ToolTip="PriorityComand">
+                <SymbolIcon Symbol="Priority" />
+            </AppBarButton>
+            <AppBarButton FontSize="36" ToolTipService.ToolTip="DeleteComamd">
+                <SymbolIcon Symbol="Delete" />
+            </AppBarButton>
+            <CommandBar.Content>
+                <Border Height="60" Width="60" Background="#f1f1f2">
+                    <Image  />
+                </Border>
+            </CommandBar.Content>
+        </CommandBar>
     </Grid>
 </Page>

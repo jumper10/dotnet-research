@@ -6,13 +6,69 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
+    DataContext="{Binding LocalPageViewModel, Source={StaticResource Locator} }"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid>
-        <StackPanel>
-            <MediaPlayerElement Height="400" Width="600"/>
-        </StackPanel>
-        
-        <TextBlock Text="LocalPage" FontSize="38" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <RelativePanel >
+            <TextBlock Text="LocalPage" FontSize="38" 
+                       VerticalAlignment="Center" 
+                       HorizontalAlignment="Center"
+                       RelativePanel.AlignVerticalCenterWithPanel="True"/>
+            <Button RelativePanel.AlignRightWithPanel="True"
+                    Command="{Binding AddFileCommand}"
+                    RelativePanel.AlignVerticalCenterWithPanel="True"
+                    Margin="0,0,80,0">
+                <SymbolIcon Symbol="Add" />
+            </Button>
+            
+            <Button RelativePanel.AlignRightWithPanel="True"
+                    Command="{Binding AddDirectoryCommand}"
+                    RelativePanel.AlignVerticalCenterWithPanel="True"
+                    Margin="0,0,10,0">
+                <SymbolIcon Symbol="Directions" />
+            </Button>
+        </RelativePanel>
+
+        <Pivot Grid.Row="1">
+            
+            <PivotItem>
+                <PivotItem.Header>
+                    <TextBlock><Run Text="歌曲"></Run>
+                        <Run Foreground="Red" FontSize="16" Text="12"/></TextBlock>                    
+                </PivotItem.Header>
+                <ItemsControl ItemsSource="{Binding Musics}">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <ItemsWrapGrid/>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <SymbolIcon Symbol="MusicInfo"/>
+                                <TextBlock Margin="20,0,0,0" Text="{Binding FileName}"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                    
+                </ItemsControl>
+            </PivotItem>
+            <PivotItem>
+                <PivotItem.Header>
+                    <TextBlock Text="歌手"/>
+                </PivotItem.Header>
+            </PivotItem>
+            <PivotItem>
+                <PivotItem.Header>
+                    <TextBlock Text="专辑"/>
+                </PivotItem.Header>
+            </PivotItem>
+        </Pivot>
     </Grid>
 </Page>

@@ -15,7 +15,7 @@
         >
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="60"/>
+            <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
         <NavigationView 
             x:Name="NavView"
@@ -122,9 +122,10 @@
 
         </NavigationView>
 
-        <CommandBar Grid.Row="1" HorizontalContentAlignment="Left"
+        <CommandBar Grid.Row="1" HorizontalContentAlignment="Left" Height="60"
                     Background="#ffffff" VerticalAlignment="Center"
-                    OverflowButtonVisibility="Collapsed">
+                    OverflowButtonVisibility="Collapsed"
+                    Visibility="{Binding CanShowCommandBar,Converter={StaticResource boolToVisibilityConverter}}">
             <AppBarButton FontSize="36" ToolTipService.ToolTip="Previous"
                           Command="{Binding PreviousCommand}">
                 <SymbolIcon Symbol="Previous" />

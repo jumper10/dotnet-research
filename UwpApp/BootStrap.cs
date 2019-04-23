@@ -39,7 +39,7 @@ namespace UwpApp
                 //    rootFrame.Navigate(typeof(MainShell), e.Arguments);
                 //}
 
-                var appNav = SimpleIoc.Default.GetInstance<INavigationService>(ViewModelLocator.AppNav);
+                var appNav = SimpleIoc.Default.GetInstance<NavigationService>(ViewModelLocator.AppNav);
                 appNav.NavigateTo(ViewModelLocator.MainShell);
                 // 确保当前窗口处于活动状态
                 Window.Current.Activate();
@@ -97,8 +97,11 @@ namespace UwpApp
                 Window.Current.Content = rootFrame;
             }
             nav.CurrentFrame = rootFrame;
+
             nav.Configure(ViewModelLocator.MainShell, typeof(MainShell));
-            SimpleIoc.Default.Register<INavigationService>(() => nav, ViewModelLocator.AppNav);
+            nav.Configure(ViewModelLocator.PlayerPage, typeof(PlayerPage));
+
+            SimpleIoc.Default.Register<NavigationService>(() => nav, ViewModelLocator.AppNav);
         }
 
         async void RegisterServices()

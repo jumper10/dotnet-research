@@ -22,7 +22,7 @@
                 <RelativePanel>
                     <TextBlock Text="videoName"/>
                 </RelativePanel>
-                <Canvas Grid.Row="1" Background="AliceBlue"/>
+                <Canvas x:Name="RenderCanvas" Grid.Row="1" Background="AliceBlue"/>
                 <StackPanel Grid.Row="2" Orientation="Horizontal">
                     <Button >
                         <StackPanel Orientation="Horizontal">

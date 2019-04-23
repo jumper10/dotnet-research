@@ -61,7 +61,7 @@ namespace UwpApp.ViewModels
 
                 var music = new Music { FilePath = file.Path, FileName = file.DisplayName };
                 Musics.Add(music);
-                this.MessengerInstance.Send(music);
+                this.MessengerInstance.Send((Media)music);
             }
         }
         public override void OnLoaded(object obj = null)

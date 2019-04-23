@@ -13,9 +13,14 @@ namespace UwpApp.ViewModels
     {
         protected NavigationService NavigationService { get; set; }
 
+        protected NavigationService AppNavigationService { get; set; }
+
         public UWPViewModelBase()
         {
             NavigationService = SimpleIoc.Default.GetInstance<NavigationService>(ViewModelLocator.MainShellNav);
+            AppNavigationService = SimpleIoc.Default.GetInstance<NavigationService>(ViewModelLocator.AppNav);
         }
+
+       
     }
 }

@@ -61,7 +61,7 @@ namespace UwpApp.ViewModels
 
                 var video = new Video { FilePath = file.Path, FileName = file.DisplayName };
                 Videos.Add(video);
-                this.MessengerInstance.Send((Media)video);
+                this.MessengerInstance.Send<Media>(video);
             }
         }
         public override void OnLoaded(object obj = null)

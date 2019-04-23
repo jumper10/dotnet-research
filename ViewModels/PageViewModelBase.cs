@@ -14,6 +14,11 @@ namespace ViewModels
             set { Set(() => OnLoading, ref _onLoading, value); }
         }
 
+        protected T Get<T>(string key)
+        {
+            return SimpleIoc.Default.GetInstance<T>(key);
+        }
+
         protected T Get<T>()
         {
             return SimpleIoc.Default.GetInstance<T>(); 

@@ -21,6 +21,8 @@ namespace UwpApp.ViewModels
         public static readonly string RecentlyPage = "RecentlyPage";
         public static readonly string SearchPage = "SearchPage";
 
+        public static readonly string PlayerPage = "PlayerPage";
+
         public ViewModelLocator()
         {
 
@@ -31,6 +33,8 @@ namespace UwpApp.ViewModels
             SimpleIoc.Default.Register<UWPViewModelBase>(() => new MVPageViewModel(), MVPage);
             SimpleIoc.Default.Register<UWPViewModelBase>(() => new RecentlyPageViewModel(), RecentlyPage);
             SimpleIoc.Default.Register<UWPViewModelBase>(() => new SearchPageViewModel(), SearchPage);
+
+            //SimpleIoc.Default.Register<UWPViewModelBase>(() => new SearchPageViewModel(), SearchPage);
 
 
             var nav = new NavigationService();
@@ -85,6 +89,8 @@ namespace UwpApp.ViewModels
             nav.Configure(MVPage, typeof(MVPage));
             nav.Configure(RecentlyPage, typeof(RecentlyPage));
             nav.Configure(SearchPage, typeof(SearchPage));
+
+           
         }
 
 

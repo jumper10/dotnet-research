@@ -27,7 +27,13 @@ namespace UwpApp.ViewModels
         readonly SystemNavigationManager SystemNavigationManager = SystemNavigationManager.GetForCurrentView();
 
         MediaPlayer _player = new MediaPlayer();
-        
+
+        private bool _canShowCommandBar =true;
+        public bool CanShowCommandBar
+        {
+            get { return _canShowCommandBar; }
+            set { Set("CanShowCommandBar", ref _canShowCommandBar,value); }
+        }
 
         private ICommand _ItemInvokedCommand;
         public ICommand ItemInvokedCommand => 
@@ -57,28 +63,28 @@ namespace UwpApp.ViewModels
             if(CurrentMedia != null)
             {
                 var file = await StorageFile.GetFileFromPathAsync(CurrentMedia.FilePath);
-               
-                var mediaSource = MediaSource.CreateFromStorageFile(file);
-                _player.Source = mediaSource;
-                mediaSource.OpenOperationCompleted += MediaSource_OpenOperationCompleted;
-                //_player.TimelineController = _mediaTimelineController;
-                _mediaTimelineController.Start();
+                if(CurrentMedia is Video)
+                {
+                    AppNavigationService.NavigateTo(ViewModelLocator.PlayerPage,CurrentMedia.FilePath);
+                    UpdateBackState();
+                }
+                else
+                {
+                    var mediaSource = MediaSource.CreateFromStorageFile(file);
+                    _player.Source = mediaSource;
+                    _mediaTimelineController.Start();
+                }
             }
 
         }
 
-        private void MediaSource_OpenOperationCompleted(MediaSource sender, MediaSourceOpenOperationCompletedEventArgs args)
-        {
-            //throw new NotImplementedException();
-        }
+       
 
         private void Next()
         {
             var mediaSource = MediaSource.CreateFromUri(new Uri(@"ms-appx:///Assets/mp3.mp3"));
             _player.Source = mediaSource;
-            //_player.TimelineController = _mediaTimelineController;
             _player.TimelineController.Start();
-
         }
         private void Like()
         {
@@ -100,15 +106,19 @@ namespace UwpApp.ViewModels
             this.NavigationService.NavigateTo(ViewModelLocator.LocalPage);
             UpdateBackState();
 
-            MessengerInstance.Register<Music>(this,RecieveMusic);
-            _player.CommandManager.IsEnabled = false;
-            _mediaTimelineController.PositionChanged += _mediaTimelineController_PositionChanged;
-            _player.TimelineController = _mediaTimelineController;
-            _systemMediaTransportControls = _player.SystemMediaTransportControls;
-            _systemMediaTransportControls.IsPlayEnabled = true;
-            _systemMediaTransportControls.IsPauseEnabled = true;
-            _systemMediaTransportControls.ButtonPressed += _systemMediaTransportControls_ButtonPressed;
-            _player.MediaOpened += _player_MediaOpened;
+            MessengerInstance.Register<Media>(this,RecieveMusic);
+            if (_player.TimelineController == null)
+            {
+                _player.CommandManager.IsEnabled = false;
+                _mediaTimelineController = new MediaTimelineController();
+                _mediaTimelineController.PositionChanged += _mediaTimelineController_PositionChanged;
+                _player.TimelineController = _mediaTimelineController;
+                _systemMediaTransportControls = _player.SystemMediaTransportControls;
+                _systemMediaTransportControls.IsPlayEnabled = true;
+                _systemMediaTransportControls.IsPauseEnabled = true;
+                _systemMediaTransportControls.ButtonPressed += _systemMediaTransportControls_ButtonPressed;
+                _player.MediaOpened += _player_MediaOpened;
+            }
         }
 
         private async void _systemMediaTransportControls_ButtonPressed(SystemMediaTransportControls sender, SystemMediaTransportControlsButtonPressedEventArgs args)
@@ -187,7 +197,12 @@ namespace UwpApp.ViewModels
 
         private void SystemNavigationManager_BackRequested(object sender, BackRequestedEventArgs e)
         {
-            if (this.NavigationService.CanGoBack)
+            if (this.AppNavigationService.CanGoBack)
+            {
+                this.AppNavigationService.GoBack();
+                UpdateBackState();
+            }
+            else if (this.NavigationService.CanGoBack)
             {
                 this.NavigationService.GoBack();
                 UpdateBackState();
@@ -196,7 +211,7 @@ namespace UwpApp.ViewModels
 
         private void UpdateBackState()
         {
-            SystemNavigationManager.AppViewBackButtonVisibility = this.NavigationService.CanGoBack ? AppViewBackButtonVisibility.Visible : AppViewBackButtonVisibility.Collapsed;
+            SystemNavigationManager.AppViewBackButtonVisibility = this.NavigationService.CanGoBack || this.AppNavigationService.CanGoBack ? AppViewBackButtonVisibility.Visible : AppViewBackButtonVisibility.Collapsed;
         }
     }
 }

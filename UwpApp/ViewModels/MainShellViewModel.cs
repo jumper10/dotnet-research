@@ -1,8 +1,8 @@
 ﻿
 using Data.Local.Data;
 using GalaSoft.MvvmLight.Command;
+using GalaSoft.MvvmLight.Threading;
 using GalaSoft.MvvmLight.Views;
-using Microsoft.Toolkit.Uwp.Helpers;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -11,11 +11,14 @@ using System.Windows.Input;
 using UwpApp.Views;
 using ViewModels;
 using Windows.Devices.Enumeration;
+using Windows.Media;
 using Windows.Media.Core;
 using Windows.Media.Devices;
 using Windows.Media.Playback;
+using Windows.Storage;
 using Windows.UI.Core;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Controls.Primitives;
 
 namespace UwpApp.ViewModels
 {
@@ -23,7 +26,7 @@ namespace UwpApp.ViewModels
     {
         readonly SystemNavigationManager SystemNavigationManager = SystemNavigationManager.GetForCurrentView();
 
-        MediaPlayer _player = new MediaPlayer(); 
+        MediaPlayer _player = new MediaPlayer();
         
 
         private ICommand _ItemInvokedCommand;
@@ -51,29 +54,30 @@ namespace UwpApp.ViewModels
         }
         private async void Play()
         {
-            if(CurrentMusic != null)
+            if(CurrentMedia != null)
             {
-                var mediaSource = MediaSource.CreateFromUri(new Uri(CurrentMusic.FilePath,UriKind.RelativeOrAbsolute));
+                var file = await StorageFile.GetFileFromPathAsync(CurrentMedia.FilePath);
+               
+                var mediaSource = MediaSource.CreateFromStorageFile(file);
                 _player.Source = mediaSource;
-                //string audioSelector = MediaDevice.GetAudioRenderSelector();
-                //var outputDevices = await DeviceInformation.FindAllAsync(audioSelector);
-               // _player.AudioDevice = outputDevices[0];
-                _player.Volume = 50;
-                _player.AutoPlay = true;
-                _player.Play();
+                mediaSource.OpenOperationCompleted += MediaSource_OpenOperationCompleted;
+                //_player.TimelineController = _mediaTimelineController;
+                _mediaTimelineController.Start();
             }
 
         }
+
+        private void MediaSource_OpenOperationCompleted(MediaSource sender, MediaSourceOpenOperationCompletedEventArgs args)
+        {
+            //throw new NotImplementedException();
+        }
+
         private void Next()
         {
             var mediaSource = MediaSource.CreateFromUri(new Uri(@"ms-appx:///Assets/mp3.mp3"));
             _player.Source = mediaSource;
-            //string audioSelector = MediaDevice.GetAudioRenderSelector();
-            //var outputDevices = await DeviceInformation.FindAllAsync(audioSelector);
-            // _player.AudioDevice = outputDevices[0];
-           // _player.Volume = 50;
-          //  _player.AutoPlay = true;
-            _player.Play();
+            //_player.TimelineController = _mediaTimelineController;
+            _player.TimelineController.Start();
 
         }
         private void Like()
@@ -97,20 +101,88 @@ namespace UwpApp.ViewModels
             UpdateBackState();
 
             MessengerInstance.Register<Music>(this,RecieveMusic);
+            _player.CommandManager.IsEnabled = false;
+            _mediaTimelineController.PositionChanged += _mediaTimelineController_PositionChanged;
+            _player.TimelineController = _mediaTimelineController;
+            _systemMediaTransportControls = _player.SystemMediaTransportControls;
+            _systemMediaTransportControls.IsPlayEnabled = true;
+            _systemMediaTransportControls.IsPauseEnabled = true;
+            _systemMediaTransportControls.ButtonPressed += _systemMediaTransportControls_ButtonPressed;
+            _player.MediaOpened += _player_MediaOpened;
+        }
+
+        private async void _systemMediaTransportControls_ButtonPressed(SystemMediaTransportControls sender, SystemMediaTransportControlsButtonPressedEventArgs args)
+        {
+            switch (args.Button)
+            {
+                case SystemMediaTransportControlsButton.Play:
+                    await DispatcherHelper.RunAsync( () =>
+                    {
+                        _player.Play();
+                    });
+                    break;
+                case SystemMediaTransportControlsButton.Pause:
+                    await DispatcherHelper.RunAsync(() =>
+                    {
+                        _player.Pause();
+                    });
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        SystemMediaTransportControls _systemMediaTransportControls;
+        public volatile bool OnChangePosition;
+        MediaTimelineController _mediaTimelineController = new MediaTimelineController();
+        private double _totalSeconds, _currentSeconds;
+        public double TotalSeconds
+        {
+            get { return _totalSeconds; }
+            set { Set("TotalSeconds", ref _totalSeconds,value); }
+        }
+        public double CurrentSeconds
+        {
+            get { return _currentSeconds; }
+            set { Set("CurrentSeconds", ref _currentSeconds, value); }
+        }
+
+        private async void _mediaTimelineController_PositionChanged(MediaTimelineController sender, object args)
+        {
+            if (OnChangePosition) return;
+            await DispatcherHelper.RunAsync(() => {
+                CurrentSeconds = sender.Position.TotalSeconds;
+            });
+        }
+
+        private async void _player_MediaOpened(MediaPlayer sender, object args)
+        {
+            await DispatcherHelper.RunAsync(()=> {
+                TotalSeconds = sender.PlaybackSession.NaturalDuration.TotalSeconds;
+            });
+        }
+
+        public void TraceValueChanged(double newValue)
+        {
+            if (_player.PlaybackSession.PlaybackState == MediaPlaybackState.Playing || _player.PlaybackSession.PlaybackState == MediaPlaybackState.Opening)
+            {
+                _player.TimelineController.Position = new TimeSpan(0, 0, (int)newValue);
+            }
         }
 
         public override void UnLoaded()
         {
             base.UnLoaded();
-            MessengerInstance.Unregister<Music>(this,RecieveMusic);
+            MessengerInstance.Unregister<Media>(this,RecieveMusic);
+            _player.MediaOpened += _player_MediaOpened;
             _player.Dispose();
         }
 
-        public Music CurrentMusic { get; set; }
+        public Media CurrentMedia { get; set; }
 
-        private void RecieveMusic(Music music)
+        private void RecieveMusic(Media media)
         {
-            CurrentMusic = music;
+            CurrentMedia = media;
         }
 
         private void SystemNavigationManager_BackRequested(object sender, BackRequestedEventArgs e)

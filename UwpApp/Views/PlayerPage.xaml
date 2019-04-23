@@ -7,8 +7,43 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-
-    <Grid>
-
-    </Grid>
+    <ScrollViewer>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="520"/>
+                <RowDefinition Height="auto"/>
+            </Grid.RowDefinitions>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="36"/>
+                    <RowDefinition Height="410"/>
+                    <RowDefinition Height="74"/>
+                </Grid.RowDefinitions>
+                <RelativePanel>
+                    <TextBlock Text="videoName"/>
+                </RelativePanel>
+                <Canvas Grid.Row="1" Background="AliceBlue"/>
+                <StackPanel Grid.Row="2" Orientation="Horizontal">
+                    <Button >
+                        <StackPanel Orientation="Horizontal">
+                            <SymbolIcon Symbol="Folder"/>
+                            <TextBlock Text="收藏量"/>
+                        </StackPanel>
+                    </Button>
+                    <Button Margin="10,0,10,0">
+                        <StackPanel Orientation="Horizontal">
+                            <SymbolIcon Symbol="Favorite"/>
+                            <TextBlock Text="分享"/>
+                        </StackPanel>
+                    </Button>
+                    <Button >
+                        <StackPanel Orientation="Horizontal">
+                            <SymbolIcon Symbol="Download"/>
+                            <TextBlock Text="下载"/>
+                        </StackPanel>
+                    </Button>
+                </StackPanel>
+            </Grid>
+        </Grid>
+    </ScrollViewer>
 </Page>

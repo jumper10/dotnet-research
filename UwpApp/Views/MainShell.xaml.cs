@@ -42,7 +42,48 @@ namespace UwpApp.Views
                 {
                     ViewModel.OnLoaded(contentFrame);
                 }
+                TraceBarController.AddHandler(UIElement.PointerPressedEvent,new PointerEventHandler(TraceBarController_PointerPressed), true);
+               
             };
+
+            Unloaded += (sender, e) =>
+            {
+                if (ViewModel != null)
+                {
+                    ViewModel.UnLoaded();
+                }
+            };
+        }
+
+        private void TraceBarController_PointerPressed(object sender, PointerRoutedEventArgs e)
+        {
+            if (ViewModel != null)
+            {
+                ViewModel.OnChangePosition = true;
+            }
+            TraceBarController.CapturePointer(e.Pointer);
+            TraceBarController.AddHandler(UIElement.PointerReleasedEvent, new PointerEventHandler(TraceBarController_PointerReleased), true);
+               
+        }
+
+        private void TraceBarController_PointerReleased(object sender, PointerRoutedEventArgs e)
+        {
+            try
+            {
+                TraceBarController.RemoveHandler(UIElement.PointerReleasedEvent, new PointerEventHandler(TraceBarController_PointerReleased));
+                if (ViewModel != null)
+                {
+                    ViewModel.TraceValueChanged(ViewModel.CurrentSeconds);
+                }
+            }
+            finally
+            {
+                TraceBarController.ReleasePointerCapture(e.Pointer);                
+                if (ViewModel != null)
+                {
+                    ViewModel.OnChangePosition = false;
+                }
+            }
         }
     }
 }

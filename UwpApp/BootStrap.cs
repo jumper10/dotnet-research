@@ -1,4 +1,5 @@
 ﻿using GalaSoft.MvvmLight.Ioc;
+using GalaSoft.MvvmLight.Threading;
 using GalaSoft.MvvmLight.Views;
 using System;
 using System.Collections.Generic;
@@ -43,6 +44,8 @@ namespace UwpApp
                 // 确保当前窗口处于活动状态
                 Window.Current.Activate();
             }
+
+            DispatcherHelper.Initialize();
         }
         /// <summary>
         /// 导航到特定页失败时调用

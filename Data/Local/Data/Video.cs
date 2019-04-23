@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Data.Local.Data
 {
-    public class Music:Media
+    public class Video:Media
     {
         
     }

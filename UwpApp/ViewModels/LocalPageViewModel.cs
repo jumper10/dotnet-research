@@ -56,7 +56,10 @@ namespace UwpApp.ViewModels
             var file = await openPicker.PickSingleFileAsync();
             if (file != null)
             {
-                var music = new Music { FilePath = file.Path, FileName = file.Name };
+                Windows.Storage.AccessCache.StorageApplicationPermissions
+                    .FutureAccessList.AddOrReplace(file.Name,file);
+
+                var music = new Music { FilePath = file.Path, FileName = file.DisplayName };
                 Musics.Add(music);
                 this.MessengerInstance.Send(music);
             }

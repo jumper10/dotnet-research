@@ -138,16 +138,18 @@
                 <SymbolIcon Symbol="Next" />
             </AppBarButton>
             <AppBarElementContainer Width="292">
-                <Grid>
+                <Grid Background="Transparent">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*"/>
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>                    
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Text="实例1" Width="223"/>
-                        <TextBlock Text="8:50/9:50"/>
+                        <TextBlock><Run Text="{Binding CurrentSeconds}"/><Run Text="/"/> <Run Text="{Binding TotalSeconds}"/></TextBlock>
                     </StackPanel>
-                <Slider Grid.Row="1" Width="292"></Slider>
+                    <Slider Grid.Row="1"  x:Name="TraceBarController" Width="292" Maximum="{Binding TotalSeconds}" Value="{Binding CurrentSeconds,Mode=TwoWay}">
+                       
+                    </Slider>
                 </Grid>
             </AppBarElementContainer>
             <AppBarButton FontSize="36" ToolTipService.ToolTip="LikeCommand">

@@ -101,6 +101,7 @@
     <Compile Include="NavigationService.cs" />
     <Compile Include="ViewModels\DownloadPageViewModel.cs" />
     <Compile Include="ViewModels\FriendPageViewModel.cs" />
+    <Compile Include="ViewModels\PlayerPageViewModel.cs" />
     <Compile Include="ViewModels\RecentlyPageViewModel.cs" />
     <Compile Include="ViewModels\SearchPageViewModel.cs" />
     <Compile Include="ViewModels\MVPageViewModel.cs" />

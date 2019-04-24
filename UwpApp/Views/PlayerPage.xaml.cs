@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using UwpApp.ViewModels;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.Media.Core;
@@ -27,59 +28,40 @@ namespace UwpApp.Views
     /// </summary>
     public sealed partial class PlayerPage : Page
     {
-       
+        public PlayerPageViewModel ViewModel
+        {
+            get { return DataContext as PlayerPageViewModel; }
+        }
+
         public PlayerPage()
         {
             this.InitializeComponent();
-            this.Loaded += (seder, e) => {
-               // InitPlayerRender(_mediaPlayer);
+            this.Loaded += (seder, e) =>
+            {
+                if (ViewModel != null)
+                    ViewModel.OnLoaded();
+            };
+            Unloaded += (sender, e) =>
+            {
+                if (ViewModel != null)
+                    ViewModel.UnLoaded();
             };
         }
-
-        MediaPlayer _player = new MediaPlayer();
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
-            if(e.Parameter != null && e.Parameter is String)
+            if (e.Parameter != null && e.Parameter is String)
             {
-                InitPlayer((string)e.Parameter);
-               
+                if (ViewModel != null)
+                    ViewModel.InitPlayer(this, (string)e.Parameter);
             }
         }
 
-        private async void InitPlayer(string filePath)
+        public Canvas GetRenderTarget
         {
-            var file =await StorageFile.GetFileFromPathAsync(filePath);
-            var mediaSource = MediaSource.CreateFromStorageFile(file);
-            _player.Source = mediaSource;
-            
-            _player.Play();
-            InitPlayerRender(_player);
+            get { return RenderCanvas; }
         }
-
-
-        private void InitPlayerRender(MediaPlayer mediaPlayer)
-        {
-            if (mediaPlayer == null) return;
-            mediaPlayer.SetSurfaceSize(new Size(RenderCanvas.ActualWidth,RenderCanvas.ActualHeight));
-            var compositor = ElementCompositionPreview.GetElementVisual(this).Compositor;
-            MediaPlayerSurface surface = mediaPlayer.GetSurface(compositor);
-
-            SpriteVisual spriteVisual = compositor.CreateSpriteVisual();
-            spriteVisual.Size =
-                new System.Numerics.Vector2((float)RenderCanvas.ActualWidth, (float)RenderCanvas.ActualHeight);
-
-            CompositionBrush brush = compositor.CreateSurfaceBrush(surface.CompositionSurface);
-            spriteVisual.Brush = brush;
-
-            ContainerVisual container = compositor.CreateContainerVisual();
-            container.Children.InsertAtTop(spriteVisual);
-
-            ElementCompositionPreview.SetElementChildVisual(RenderCanvas, container);
-        }
-
-        
     }
 
     public class PlayerPageNavigationEventArgs

@@ -34,7 +34,7 @@ namespace UwpApp.ViewModels
             SimpleIoc.Default.Register<UWPViewModelBase>(() => new RecentlyPageViewModel(), RecentlyPage);
             SimpleIoc.Default.Register<UWPViewModelBase>(() => new SearchPageViewModel(), SearchPage);
 
-            //SimpleIoc.Default.Register<UWPViewModelBase>(() => new SearchPageViewModel(), SearchPage);
+            SimpleIoc.Default.Register<UWPViewModelBase>(() => new PlayerPageViewModel(), PlayerPage);
 
 
             var nav = new NavigationService();
@@ -77,6 +77,11 @@ namespace UwpApp.ViewModels
         public SearchPageViewModel SearchPageViewModel
         {
             get { return GetViewModel(SearchPage) as SearchPageViewModel; ; }
+        }
+
+        public PlayerPageViewModel PlayerPageViewModel
+        {
+            get { return GetViewModel(PlayerPage) as PlayerPageViewModel; ; }
         }
 
         private void ConfigNavigationService(NavigationService nav)

@@ -23,7 +23,9 @@
                 <RelativePanel>
                     <TextBlock Text="videoName"/>
                 </RelativePanel>
-                <Canvas x:Name="RenderCanvas" Grid.Row="1" Background="AliceBlue"/>
+                <MediaPlayerElement Background="Red" BorderThickness="5" BorderBrush="Red"
+                    AreTransportControlsEnabled="False" HorizontalAlignment="Stretch"  x:FieldModifier="public" Grid.Row="1" x:Name="MediaElement" />
+                <Canvas x:Name="RenderCanvas" Grid.Row="1" Background="AliceBlue"  x:FieldModifier="public"/>
                 <StackPanel Grid.Row="2" Orientation="Horizontal">
                     <Button >
                         <StackPanel Orientation="Horizontal">

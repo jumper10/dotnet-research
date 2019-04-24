@@ -40,6 +40,8 @@ namespace UwpApp.Views
             {
                 if (ViewModel != null)
                     ViewModel.OnLoaded();
+                if (ViewModel != null)
+                    ViewModel.InitPlayer(this, _fileName);
             };
             Unloaded += (sender, e) =>
             {
@@ -48,19 +50,16 @@ namespace UwpApp.Views
             };
         }
 
+        string _fileName;
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
             if (e.Parameter != null && e.Parameter is String)
             {
-                if (ViewModel != null)
-                    ViewModel.InitPlayer(this, (string)e.Parameter);
+                _fileName =(string) e.Parameter;
+                //if (ViewModel != null)
+                //    ViewModel.InitPlayer(this, (string)e.Parameter);
             }
-        }
-
-        public Canvas GetRenderTarget
-        {
-            get { return RenderCanvas; }
         }
     }
 

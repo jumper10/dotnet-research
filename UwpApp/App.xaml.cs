@@ -32,7 +32,8 @@ namespace UwpApp
         /// </summary>
         public App()
         {
-            this.UnhandledException += App_UnhandledException;
+            Application.Current.UnhandledException += App_UnhandledException;
+           
             this.InitializeComponent();
             this.Suspending += OnSuspending;
             EnteredBackground += App_EnteredBackground;

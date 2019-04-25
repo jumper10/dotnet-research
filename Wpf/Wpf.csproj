@@ -66,6 +66,9 @@
     </ApplicationDefinition>
     <Compile Include="Common\RelayCommand.cs" />
     <Compile Include="Common\ResourceUtil.cs" />
+    <Compile Include="Player\UCPlayer.xaml.cs">
+      <DependentUpon>UCPlayer.xaml</DependentUpon>
+    </Compile>
     <Compile Include="TreeView\TreeViewItemModel.cs" />
     <Compile Include="TreeView\TreeViewModel.cs" />
     <Compile Include="TreeView\UCTreeView.xaml.cs">
@@ -85,6 +88,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Player\UCPlayer.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="TreeView\UCTreeView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

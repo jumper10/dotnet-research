@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using UwpApp.Comon;
 using ViewModels;
 using Windows.Storage.Pickers;
 
@@ -17,7 +18,7 @@ namespace UwpApp.ViewModels
         public ObservableCollection<Video> Videos { get; set; } = new ObservableCollection<Video>();
 
         private ICommand _selectDirectory;
-        public ICommand SelectedDirectoryCommand
+        public ICommand SelectDirectoryCommand
         {
             get
             {
@@ -49,11 +50,7 @@ namespace UwpApp.ViewModels
 
         public async void AddFile()
         {
-            var openPicker = new FileOpenPicker();
-            openPicker.ViewMode = PickerViewMode.Thumbnail;
-            openPicker.SuggestedStartLocation = PickerLocationId.Desktop;
-            openPicker.FileTypeFilter.Add("*");
-            var file = await openPicker.PickSingleFileAsync();
+            var file = await FileHelper.SelectFileAsync();
             if (file != null)
             {
                 Windows.Storage.AccessCache.StorageApplicationPermissions

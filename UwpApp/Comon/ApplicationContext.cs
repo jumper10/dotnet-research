@@ -19,7 +19,5 @@ namespace UwpApp
         public static readonly Color InactiveTitleBarButtonBackground = ResourceUtil.GetResource<Color>("InactiveTitleBarButtonBackground");
         public static readonly Color TitleBarButtonHoverBackgroud = ResourceUtil.GetResource<Color>("TitleBarButtonHoverBackgroud");
 
-       
-        
     }
 }

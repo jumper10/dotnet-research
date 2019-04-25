@@ -15,7 +15,7 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <RelativePanel >
-            <TextBlock Text="LocalPage" FontSize="38" 
+            <TextBlock Text="播放列表" FontSize="38" 
                        VerticalAlignment="Center" 
                        HorizontalAlignment="Center"
                        RelativePanel.AlignVerticalCenterWithPanel="True"/>
@@ -27,7 +27,7 @@
             </Button>
 
             <Button RelativePanel.AlignRightWithPanel="True"
-                    Command="{Binding AddDirectoryCommand}"
+                    Command="{Binding SelectDirectoryCommand}"
                     RelativePanel.AlignVerticalCenterWithPanel="True"
                     Margin="0,0,10,0">
                 <SymbolIcon Symbol="Directions" />

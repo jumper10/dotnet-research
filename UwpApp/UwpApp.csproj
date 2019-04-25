@@ -97,6 +97,7 @@
     </Compile>
     <Compile Include="BootStrap.cs" />
     <Compile Include="Comon\ApplicationContext.cs" />
+    <Compile Include="Comon\FileHelper.cs" />
     <Compile Include="Comon\ResourceUtil.cs" />
     <Compile Include="NavigationService.cs" />
     <Compile Include="ViewModels\DownloadPageViewModel.cs" />

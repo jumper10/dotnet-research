@@ -25,7 +25,8 @@
                 </RelativePanel>
                 <MediaPlayerElement Background="Red" BorderThickness="5" BorderBrush="Red"
                     AreTransportControlsEnabled="False" HorizontalAlignment="Stretch"  x:FieldModifier="public" Grid.Row="1" x:Name="MediaElement" />
-                <Canvas x:Name="RenderCanvas"  Grid.Row="1" Background="AliceBlue"  x:FieldModifier="public"/>
+                <Canvas x:Name="RenderCanvas"  Grid.Row="1" Background="Transparent"  x:FieldModifier="public"/>
+                <Image x:Name="RenderImage" Grid.Row="1"   x:FieldModifier="public"/>
                 <StackPanel Grid.Row="2" Orientation="Horizontal">
                     <Button >
                         <StackPanel Orientation="Horizontal">

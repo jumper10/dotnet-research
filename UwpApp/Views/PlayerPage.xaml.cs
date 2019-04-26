@@ -53,7 +53,7 @@ namespace UwpApp.Views
         string _fileName;
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            base.OnNavigatedTo(e);
+            base.OnNavigatedTo(e); 
             if (e.Parameter != null && e.Parameter is String)
             {
                 _fileName =(string) e.Parameter;

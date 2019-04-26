@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Text;
 using System.Windows;
+using Windows.UI.Xaml;
 
-namespace CommonLibrary.Utils
+namespace UwpApp
 {
-    public class AttachPropertyUtil
+    [Bindable(true)]
+    public class AttachPropertyUtil: DependencyObject
     {
         public static readonly DependencyProperty IsSelectedProperty;
         static AttachPropertyUtil()

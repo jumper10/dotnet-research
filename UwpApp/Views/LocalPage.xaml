@@ -6,6 +6,10 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
+    xmlns:i="using:Microsoft.Xaml.Interactivity"
+    xmlns:core="using:Microsoft.Xaml.Interactions.Core"
+    xmlns:ap="using:UwpApp"
+    xmlns:markup="using:System.Windows.Markup"
     DataContext="{Binding LocalPageViewModel, Source={StaticResource Locator} }"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
@@ -49,11 +53,23 @@
                     </ItemsControl.ItemsPanel>
 
                     <ItemsControl.ItemTemplate>
-                        <DataTemplate>
-                            <StackPanel Orientation="Horizontal">
+                        <DataTemplate >
+                            <StackPanel x:Name="sp" Orientation="Horizontal">
                                 <SymbolIcon Symbol="MusicInfo"/>
                                 <TextBlock Margin="20,0,0,0" Text="{Binding FileName}"/>
+
+                                <!--<i:Interaction.Behaviors>
+                                    <core:EventTriggerBehavior EventName="ItemInvoked">
+                                        <core:EventTriggerBehavior.Actions>
+                                            <core:InvokeCommandAction Command="{x:Bind ItemInvokedCommand}"/>
+                                        </core:EventTriggerBehavior.Actions>
+                                    </core:EventTriggerBehavior>
+                                    <core:DataTriggerBehavior Binding="{x:Bind (ap:AttachPropertyUtil.IsSelected)}" Value="True">
+                                        <core:ChangePropertyAction PropertyName="Backgroud" TargetObject="sp" Value="Blue"/>
+                                    </core:DataTriggerBehavior>
+                                </i:Interaction.Behaviors>-->
                             </StackPanel>
+                           
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
                     

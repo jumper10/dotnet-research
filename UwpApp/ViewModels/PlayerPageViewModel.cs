@@ -67,92 +67,17 @@ namespace UwpApp.ViewModels
 
             _player.Source = mediaSource;
 
-            Compositor compositor = InitPlayerRender(_player);
+            Compositor compositor = null;/// InitPlayerRender(_player);
             if (compositor != null)
             {
 
             }
 
             _player.IsVideoFrameServerEnabled = true;
-            _player.VideoFrameAvailable += _player_VideoFrameAvailable;
-            _player.PlaybackSession.PositionChanged+= PlaybackSession_PositionChanged;
-            _player.SystemMediaTransportControls.PlaybackPositionChangeRequested += SystemMediaTransportControls_PlaybackPositionChangeRequested;
+            _player.VideoFrameAvailable += _player_VideoFrameAvailable;           
             StartFaceTracker();
             _player.Play();
         }
-
-        private async void SystemMediaTransportControls_PlaybackPositionChangeRequested(SystemMediaTransportControls sender, PlaybackPositionChangeRequestedEventArgs args)
-        {
-            if (!_frameSemaphore.Wait(0)) return;
-            try
-            {
-                if (_frameDest == null)
-                {
-                    _frameDest = new SoftwareBitmap(BitmapPixelFormat.Bgra8, (int)_renderSize.Width, (int)_renderSize.Height, BitmapAlphaMode.Premultiplied);
-                }
-                var canvasDevice = CanvasDevice.GetSharedDevice();
-
-                using (var canvasBitmp = CanvasBitmap.CreateFromSoftwareBitmap(canvasDevice, _frameDest))
-                {
-                    _player.CopyFrameToVideoSurface(canvasBitmp);
-                    var frameBitmap = await SoftwareBitmap.CreateCopyFromSurfaceAsync(canvasBitmp);
-                    //need  change format to faceTracer can detected
-                    if (_LastFrame != null)
-                    {
-                        _LastFrame.Dispose();
-                    }
-                    _LastFrame = (SoftwareBitmap.Convert(frameBitmap, BitmapPixelFormat.Gray8));
-                    frameBitmap.Dispose();
-                    //_LastFrame = VideoFrame.CreateWithSoftwareBitmap(SoftwareBitmap.Convert(frameBitmap,BitmapPixelFormat.Gray8));
-
-                }
-            }
-            catch (Exception ex)
-            {
-
-            }
-            finally
-            {
-                _frameSemaphore.Release();
-            }
-        }
-
-        private async void PlaybackSession_PositionChanged(MediaPlaybackSession sender, object args)
-        {
-            if (!_frameSemaphore.Wait(0)) return;
-            try
-            {
-                if (_frameDest == null)
-                {
-                    _frameDest = new SoftwareBitmap(BitmapPixelFormat.Bgra8, (int)_renderSize.Width, (int)_renderSize.Height, BitmapAlphaMode.Premultiplied);
-                }
-                var canvasDevice = CanvasDevice.GetSharedDevice();
-
-                using (var canvasBitmp = CanvasBitmap.CreateFromSoftwareBitmap(canvasDevice, _frameDest))
-                {
-                    _player.CopyFrameToVideoSurface(canvasBitmp);
-                    var frameBitmap = await SoftwareBitmap.CreateCopyFromSurfaceAsync(canvasBitmp);
-                    //need  change format to faceTracer can detected
-                    if (_LastFrame != null)
-                    {
-                        _LastFrame.Dispose();
-                    }
-                    _LastFrame = (SoftwareBitmap.Convert(frameBitmap, BitmapPixelFormat.Gray8));
-                    frameBitmap.Dispose();
-                    //_LastFrame = VideoFrame.CreateWithSoftwareBitmap(SoftwareBitmap.Convert(frameBitmap,BitmapPixelFormat.Gray8));
-
-                }
-            }
-            catch (Exception ex)
-            {
-
-            }
-            finally
-            {
-                _frameSemaphore.Release();
-            }
-        }
-
         volatile SoftwareBitmap _LastFrame;
         SoftwareBitmap _frameDest;
         SemaphoreSlim _frameSemaphore = new SemaphoreSlim(1);

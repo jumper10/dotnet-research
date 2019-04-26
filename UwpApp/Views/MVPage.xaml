@@ -50,10 +50,11 @@
 
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
-                            <StackPanel Orientation="Horizontal">
+                            <StackPanel Orientation="Horizontal" >
                                 <SymbolIcon Symbol="Video"/>
                                 <TextBlock Margin="20,0,0,0" Text="{Binding FileName}"/>
                             </StackPanel>
+                           
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
 

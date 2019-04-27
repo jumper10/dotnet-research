@@ -67,7 +67,7 @@ namespace UwpApp.ViewModels
 
             _player.Source = mediaSource;
 
-            Compositor compositor = null;/// InitPlayerRender(_player);
+            Compositor compositor =  InitPlayerRender(_player);
             if (compositor != null)
             {
 
@@ -87,39 +87,55 @@ namespace UwpApp.ViewModels
 
         private async void _player_VideoFrameAvailable(MediaPlayer sender, object args)
         {
-           // if (!_frameSemaphore.Wait(0)) return;
+            // if (!_frameSemaphore.Wait(0)) return;
 
             CanvasDevice canvasDevice = CanvasDevice.GetSharedDevice();
-            
-            await _playerView.Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
-            {
-            if (frameServerDest == null)
-            {
-                // FrameServerImage in this example is a XAML image control
-                frameServerDest = new SoftwareBitmap(BitmapPixelFormat.Rgba8, (int)_renderSize.Width, (int)_renderSize.Height, BitmapAlphaMode.Ignore);
-            }
-            if (canvasImageSource == null)
-            {
-                canvasImageSource = new CanvasImageSource(canvasDevice, (int)_renderSize.Width, (int)_renderSize.Height, DisplayInformation.GetForCurrentView().LogicalDpi);//96); 
-               _playerView.RenderImage.Source = canvasImageSource;
-                 //   _playerView.RenderCanvas.Background = new ImageBrush { ImageSource = canvasImageSource };
-                }
 
-            using (CanvasBitmap inputBitmap = CanvasBitmap.CreateFromSoftwareBitmap(canvasDevice, frameServerDest))
-            using (CanvasDrawingSession ds = canvasImageSource.CreateDrawingSession(Windows.UI.Colors.Black))
+            await _playerView.Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal,async () =>
             {
+                if (frameServerDest == null)
+                {
+                    // FrameServerImage in this example is a XAML image control
+                    frameServerDest = new SoftwareBitmap(BitmapPixelFormat.Rgba8, (int)_renderSize.Width, (int)_renderSize.Height, BitmapAlphaMode.Ignore);
+                }
+                if (canvasImageSource == null)
+                {
+                    canvasImageSource = new CanvasImageSource(canvasDevice, (int)_renderSize.Width, (int)_renderSize.Height, DisplayInformation.GetForCurrentView().LogicalDpi);//96); 
+                    _playerView.RenderImage.Source = canvasImageSource;
+                    //   _playerView.RenderCanvas.Background = new ImageBrush { ImageSource = canvasImageSource };
+                }
+                using (CanvasBitmap inputBitmap = CanvasBitmap.CreateFromSoftwareBitmap(canvasDevice, frameServerDest))
+                using (CanvasDrawingSession ds = canvasImageSource.CreateDrawingSession(Windows.UI.Colors.Black))
+                {
 
 
                     _player.CopyFrameToVideoSurface(inputBitmap);
 
-                    var gaussianBlurEffect = new GaussianBlurEffect
-                    {
-                        Source = inputBitmap,
-                        BlurAmount = 5f,
-                        Optimization = EffectOptimization.Speed
-                    };
+                    //var gaussianBlurEffect = new GaussianBlurEffect
+                    //{
+                    //    Source = inputBitmap,
+                    //   // BlurAmount = 5f,
+                    //    Optimization = EffectOptimization.Quality
+                    //};
 
-                    ds.DrawImage(gaussianBlurEffect);
+                    ds.DrawImage(inputBitmap);
+
+                    if (_LastFrame != null)
+                    {
+                        _LastFrame.Dispose();
+                    }
+                    var map = SoftwareBitmap.CreateCopyFromSurfaceAsync(inputBitmap);
+                    map.Completed = (obj,state) => {
+                        var mapr = obj.GetResults();
+                        if (mapr != null)
+                        {
+                            _LastFrame = (SoftwareBitmap.Convert(mapr, BitmapPixelFormat.Gray8));
+                            mapr.Dispose();
+                            mapr = null;
+                        }
+                    };
+                   
+                   
 
                 }
             });
@@ -136,14 +152,14 @@ namespace UwpApp.ViewModels
             //    var canvasDevice = CanvasDevice.GetSharedDevice();
             //    if (canvasImageSource == null)
             //    {
-                  
+
             //            canvasImageSource = new CanvasImageSource(canvasDevice, (int)_renderSize.Width, (int)_renderSize.Height, DisplayInformation.GetForCurrentView().LogicalDpi);
             //            _playerView.RenderCanvas.Background = new ImageBrush { ImageSource = canvasImageSource };
-                   
+
             //    }
             //    using (var canvasBitmp = CanvasBitmap.CreateFromSoftwareBitmap(canvasDevice, _frameDest))
             //    {
-                   
+
             //            using (CanvasDrawingSession ds = canvasImageSource.CreateDrawingSession(Windows.UI.Colors.Black))
             //            {
 
@@ -158,7 +174,7 @@ namespace UwpApp.ViewModels
 
             //                ds.DrawImage(gaussianBlurEffect);
             //            }
-                  
+
             //        //sender.CopyFrameToVideoSurface(canvasBitmp);
             //        var frameBitmap = await SoftwareBitmap.CreateCopyFromSurfaceAsync(canvasBitmp);
             //        //need  change format to faceTracer can detected

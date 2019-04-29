@@ -36,21 +36,6 @@ namespace UwpApp
            
             this.InitializeComponent();
             this.Suspending += OnSuspending;
-            EnteredBackground += App_EnteredBackground;
-            LeavingBackground += App_LeavingBackground;
-           
-        }
-
-        bool _isInBackgroudMode = false;
-
-        private void App_LeavingBackground(object sender, LeavingBackgroundEventArgs e)
-        {
-            _isInBackgroudMode = false;
-        }
-
-        private void App_EnteredBackground(object sender, EnteredBackgroundEventArgs e)
-        {
-            _isInBackgroudMode = true;
         }
 
         private void App_UnhandledException(object sender, Windows.UI.Xaml.UnhandledExceptionEventArgs e)

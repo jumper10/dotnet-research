@@ -15,7 +15,7 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <RelativePanel >
-            <TextBlock Text="播放列表" FontSize="38" 
+            <TextBlock Text="播放列表" Style="{ThemeResource PageHeaderStyle}"
                        VerticalAlignment="Center" 
                        HorizontalAlignment="Center"
                        RelativePanel.AlignVerticalCenterWithPanel="True"/>

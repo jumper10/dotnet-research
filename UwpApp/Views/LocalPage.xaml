@@ -8,10 +8,11 @@
     mc:Ignorable="d"
     xmlns:i="using:Microsoft.Xaml.Interactivity"
     xmlns:core="using:Microsoft.Xaml.Interactions.Core"
-    xmlns:ap="using:UwpApp"
+    xmlns:ap="using:UwpApp" 
     xmlns:markup="using:System.Windows.Markup"
     DataContext="{Binding LocalPageViewModel, Source={StaticResource Locator} }"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+    FontSize="14">
 
     <Grid>
         <Grid.RowDefinitions>
@@ -19,7 +20,7 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <RelativePanel >
-            <TextBlock Text="播放列表" FontSize="38" 
+            <TextBlock Text="播放列表"  Style="{ThemeResource PageHeaderStyle}"
                        VerticalAlignment="Center" 
                        HorizontalAlignment="Center"
                        RelativePanel.AlignVerticalCenterWithPanel="True"/>
@@ -38,12 +39,12 @@
             </Button>
         </RelativePanel>
 
-        <Pivot Grid.Row="1">
+        <Pivot Grid.Row="1" FontSize="16">
             
             <PivotItem>
-                <PivotItem.Header>
+                <PivotItem.Header >
                     <TextBlock><Run Text="歌曲"></Run>
-                        <Run Foreground="Red" FontSize="16" Text="12"/></TextBlock>                    
+                        <Run Foreground="Red" FontSize="12" Text="12"/></TextBlock>                    
                 </PivotItem.Header>
                 <ItemsControl ItemsSource="{Binding Musics}">
                     <ItemsControl.ItemsPanel>
@@ -52,22 +53,26 @@
                         </ItemsPanelTemplate>
                     </ItemsControl.ItemsPanel>
 
+                    <ItemsControl.ItemContainerStyle>
+                        <Style TargetType="StackPanel">
+                            <Setter Property="ap:AttachPropertyUtil.IsSelected" Value="True"/>
+                        </Style>
+                    </ItemsControl.ItemContainerStyle>
+                   
                     <ItemsControl.ItemTemplate>
                         <DataTemplate >
-                            <StackPanel x:Name="sp" Orientation="Horizontal">
+                            <StackPanel x:Name="sp" Orientation="Horizontal" ap:AttachPropertyUtil.IsSelected="True">
                                 <SymbolIcon Symbol="MusicInfo"/>
-                                <TextBlock Margin="20,0,0,0" Text="{Binding FileName}"/>
+                                <TextBlock Margin="20,0,0,0" ap:AttachPropertyUtil.IsSelected="False" Text="{Binding FileName}"/>
 
-                                <!--<i:Interaction.Behaviors>
-                                    <core:EventTriggerBehavior EventName="ItemInvoked">
-                                        <core:EventTriggerBehavior.Actions>
-                                            <core:InvokeCommandAction Command="{x:Bind ItemInvokedCommand}"/>
-                                        </core:EventTriggerBehavior.Actions>
-                                    </core:EventTriggerBehavior>
-                                    <core:DataTriggerBehavior Binding="{x:Bind (ap:AttachPropertyUtil.IsSelected)}" Value="True">
+                                <i:Interaction.Behaviors>
+                                    
+                                    <core:DataTriggerBehavior Binding="{Binding RelativeSource={RelativeSource Mode=Self}
+                                        ,Path=(ap:AttachPropertyUtil.IsSelected)}" 
+                                                              Value="True">
                                         <core:ChangePropertyAction PropertyName="Backgroud" TargetObject="sp" Value="Blue"/>
                                     </core:DataTriggerBehavior>
-                                </i:Interaction.Behaviors>-->
+                                </i:Interaction.Behaviors>
                             </StackPanel>
                            
                         </DataTemplate>

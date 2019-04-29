@@ -1,14 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Text;
 using System.Windows;
 using Windows.UI.Xaml;
+using Windows.UI.Xaml.Data;
 
 namespace UwpApp
 {
-    [Bindable(true)]
-    public class AttachPropertyUtil: DependencyObject
+   // [Bindable]
+    public class AttachPropertyUtil
     {
         public static readonly DependencyProperty IsSelectedProperty;
         static AttachPropertyUtil()

@@ -1,13 +1,17 @@
-﻿using System;
+﻿using Data.Local.Common;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Text;
 
 namespace Data.Local.Data
 {
-    public class Media
+    public abstract class Media :LongEntity
     {
-        public long Id { get; set; }
+        [Required]
+        [MaxLength(300)]
         public string FilePath { get; set; }
+        [MaxLength(200)]
         public string FileName { get; set; }
     }
 }

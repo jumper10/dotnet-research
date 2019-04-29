@@ -1,38 +1,37 @@
 ﻿using CommonLibrary;
 using Data.Local.Common;
-using Data.Local.Data;
+using Data.Local.Contexts;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 
-namespace Data.Local.Contexts
+namespace Data.Local.Services
 {
-    public class AppLogDb:DbContext
+    public abstract class BaseService<T,TKey> where T:BaseEntity<TKey> 
     {
-        private string _connetionString = null;
+        protected virtual DbContextType DbContextType { get; set; } = DbContextType.App;
 
-        public AppLogDb(string connectionString)
+        private DbContextFactory _dbContextFactory;
+
+        public BaseService(DbContextFactory dbContextFactory)
         {
-            _connetionString = connectionString;
+            _dbContextFactory = dbContextFactory;
         }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        protected DbContext GetDbContext()
         {
-            base.OnConfiguring(optionsBuilder);
-            optionsBuilder.UseSqlite(_connetionString);
+            return _dbContextFactory.GetDbContext(DbContextType);
         }
 
-        public void EnsureCreated()
+        public async Task<T> GetLogAsync(TKey id)
         {
-            Database.EnsureCreated();
-        }
-
-        public DbSet<AppLog> Logs { get; set; }
-
-        public async Task<AppLog> GetLogAsync(long id)
-        {
+            using(var dbContext = GetDbContext())
+            {
+                dbContext.Set<T>().Where(r => r.Id == id).FirstOrDefaultAsync();
+            }
             return await Logs.Where(r => r.Id == id).FirstOrDefaultAsync();
         }
 
@@ -136,4 +135,5 @@ namespace Data.Local.Contexts
             await SaveChangesAsync();
         }
     }
+
 }

@@ -13,6 +13,17 @@ namespace Data.Local.Common
     {
         static readonly ConcurrentDictionary<DbContextType, string> _DbContexts;
 
+        public void Migrate()
+        {
+            foreach(var db in _DbContexts)
+            {
+                using(var dbContext = GetDbContext(db.Key))
+                {
+                    dbContext.Database.Migrate();
+                }
+            }
+        }
+
         static DbContextFactory()
         {
             _DbContexts = new ConcurrentDictionary<DbContextType, string>();

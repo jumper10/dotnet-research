@@ -64,6 +64,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="BootStrap.cs" />
     <Compile Include="Common\RelayCommand.cs" />
     <Compile Include="Common\ResourceUtil.cs" />
     <Compile Include="Player\UCPlayer.xaml.cs">
@@ -76,6 +77,7 @@
     </Compile>
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
+    <Compile Include="WpfModule.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -128,6 +130,10 @@
     <ProjectReference Include="..\CommonLibrary\CommonLibrary.csproj">
       <Project>{a77481b6-4364-4e4e-897a-069502e7b217}</Project>
       <Name>CommonLibrary</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Data\Data.csproj">
+      <Project>{df08e54b-8e81-45d6-9c1b-fe6c164e2967}</Project>
+      <Name>Data</Name>
     </ProjectReference>
     <ProjectReference Include="..\ViewModels\ViewModels.csproj">
       <Project>{7c1aaa7f-72eb-4f04-95f3-ebcf317c8a92}</Project>

@@ -35,9 +35,9 @@ namespace Data.Local.Services
             return await Logs.Where(r => r.Id == id).FirstOrDefaultAsync();
         }
 
-        public async Task<IList<AppLog>> GetLogsAsync(int skip, int take, DataRequest<AppLog> request)
+        public async Task<IList<T>> GetLogsAsync(int skip, int take, DataRequest<T> request)
         {
-            IQueryable<AppLog> items = GetLogs(request);
+            IQueryable<T> items = GetLogs(request);
 
             // Execute
             var records = await items.Skip(skip).Take(take)
@@ -47,13 +47,13 @@ namespace Data.Local.Services
             return records;
         }
 
-        public async Task<IList<AppLog>> GetLogKeysAsync(int skip, int take, DataRequest<AppLog> request)
+        public async Task<IList<T>> GetLogKeysAsync(int skip, int take, DataRequest<T> request)
         {
-            IQueryable<AppLog> items = GetLogs(request);
+            IQueryable<T> items = GetLogs(request);
 
             // Execute
             var records = await items.Skip(skip).Take(take)
-                .Select(r => new AppLog
+                .Select(r => new T
                 {
                     Id = r.Id,
                 })
@@ -64,9 +64,9 @@ namespace Data.Local.Services
         }
 
 
-        private IQueryable<AppLog> GetLogs(DataRequest<AppLog> request)
+        private IQueryable<T> GetLogs(DataRequest<T> request)
         {
-            IQueryable<AppLog> items = Logs;
+            IQueryable<T> items = Logs;
 
             // Query
             if (!String.IsNullOrEmpty(request.Query))
@@ -93,9 +93,9 @@ namespace Data.Local.Services
             return items;
         }
 
-        public async Task<int> GetLogsCountAsync(DataRequest<AppLog> request)
+        public async Task<int> GetLogsCountAsync(DataRequest<T> request)
         {
-            IQueryable<AppLog> items = Logs;
+            IQueryable<T> items = Logs;
 
             // Query
             if (!String.IsNullOrEmpty(request.Query))
@@ -119,7 +119,7 @@ namespace Data.Local.Services
             return await SaveChangesAsync();
         }
 
-        public async Task<int> DeleteLogsAsync(params AppLog[] logs)
+        public async Task<int> DeleteLogsAsync(params T[] logs)
         {
             Logs.RemoveRange(logs);
             return await SaveChangesAsync();

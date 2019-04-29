@@ -1,9 +1,12 @@
-﻿using GalaSoft.MvvmLight.Ioc;
+﻿using CommonLibrary;
+using Data.Local.Common;
+using GalaSoft.MvvmLight.Ioc;
 using GalaSoft.MvvmLight.Threading;
 using GalaSoft.MvvmLight.Views;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices.WindowsRuntime;
 using System.Text;
 using System.Threading.Tasks;
 using UwpApp.ViewModels;
@@ -20,14 +23,15 @@ namespace UwpApp
     {
         public void Run(LaunchActivatedEventArgs e)
         {
+            Config();
+            Migrate();
             InitShell(e);
         }
 
         void InitShell(LaunchActivatedEventArgs e)
         {
             InitSetting();
-            RegisterServices();
-            RegistAppNavService(e);
+            InitAppNavService(e);
 
             if (e.PrelaunchActivated == false)
             {
@@ -44,18 +48,8 @@ namespace UwpApp
                 // 确保当前窗口处于活动状态
                 Window.Current.Activate();
             }
-
-            DispatcherHelper.Initialize();
         }
-        /// <summary>
-        /// 导航到特定页失败时调用
-        /// </summary>
-        ///<param name="sender">导航失败的框架</param>
-        ///<param name="e">有关导航失败的详细信息</param>
-        void OnNavigationFailed(object sender, NavigationFailedEventArgs e)
-        {
-            throw new Exception("Failed to load Page " + e.SourcePageType.FullName);
-        }
+       
 
         private void InitSetting()
         {
@@ -74,9 +68,9 @@ namespace UwpApp
             titleBar.ButtonInactiveForegroundColor = ApplicationContext.TitleBarForegroud;
         }
 
-        void RegistAppNavService(LaunchActivatedEventArgs e)
+        void InitAppNavService(LaunchActivatedEventArgs e)
         {
-            var nav = new NavigationService();
+            var nav = SimpleIoc.Default.GetInstance<NavigationService>(ViewModelLocator.AppNav);
             Frame rootFrame = Window.Current.Content as Frame;
 
             // 不要在窗口已包含内容时重复应用程序初始化，
@@ -97,18 +91,28 @@ namespace UwpApp
                 Window.Current.Content = rootFrame;
             }
             nav.CurrentFrame = rootFrame;
-
-            nav.Configure(ViewModelLocator.MainShell, typeof(MainShell));
-            nav.Configure(ViewModelLocator.PlayerPage, typeof(PlayerPage));
-
-            SimpleIoc.Default.Register<NavigationService>(() => nav, ViewModelLocator.AppNav);
         }
 
-        async void RegisterServices()
+        void Config()
         {
-            SimpleIoc.Default.Register<NavigationService>();
+            ModuleManager.ConfigAllModules();
         }
 
+        /// <summary>
+        /// 导航到特定页失败时调用
+        /// </summary>
+        ///<param name="sender">导航失败的框架</param>
+        ///<param name="e">有关导航失败的详细信息</param>
+        void OnNavigationFailed(object sender, NavigationFailedEventArgs e)
+        {
+            throw new Exception("Failed to load Page " + e.SourcePageType.FullName);
+        }
+
+        void Migrate()
+        {
+            var dbFactory = SimpleIoc.Default.GetInstance<DbContextFactory>();
+            dbFactory.Migrate();
+        }
 
     }
 }

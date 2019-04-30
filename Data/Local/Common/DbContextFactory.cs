@@ -30,8 +30,8 @@ namespace Data.Local.Common
         static DbContextFactory()
         {
             _DbContexts = new ConcurrentDictionary<DbContextType, string>();
-            _DbContexts[DbContextType.AppLog] =$"Filename = {PathUtil.CombinePath(PathUtil.GetAppDataPath(), "app_log.bat")}";
-            _DbContexts[DbContextType.App] = $"Filename ={PathUtil.CombinePath(PathUtil.GetAppDataPath(), "app_data.bat")}";
+            _DbContexts[DbContextType.AppLog] =$"Filename = app_log.bat";
+            _DbContexts[DbContextType.App] = $"Filename =app_data.bat";
         }
 
         public string GetDataBaseLocation(DbContextType contextType = DbContextType.App)

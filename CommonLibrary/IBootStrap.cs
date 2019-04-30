@@ -2,9 +2,10 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Data.Local.Common
+namespace CommonLibrary
 {
-    public abstract class LongEntity:BaseEntity<long>
+    public interface IBootStrap
     {
+        void LoadModules();
     }
 }

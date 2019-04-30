@@ -8,9 +8,14 @@ namespace Data.Local.Contexts
 {
     public class AppDBContext: DbContext
     {
-        private readonly string _connetionString= null;
+        private readonly string _connetionString = "Data Source=app_data.bat";
 
-        public AppDBContext(string connectionString)
+        public AppDBContext(DbContextOptions<AppDBContext> optionsBuilder)
+        {
+           
+        }
+
+        public AppDBContext(string connectionString = "Data Source=app_data.bat")
         {
             _connetionString = connectionString;
         }
@@ -20,6 +25,7 @@ namespace Data.Local.Contexts
             base.OnConfiguring(optionsBuilder);
             optionsBuilder.UseSqlite(_connetionString);
         }
+       
 
         public DbSet<Music> Musics { get; set; }
         public DbSet<Video> Videos { get; set; }

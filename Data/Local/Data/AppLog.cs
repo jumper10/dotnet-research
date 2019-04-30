@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Data.Local.Common;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
@@ -11,14 +12,9 @@ namespace Data.Local.Data
         Warning,
         Erro
     }
-    public class AppLog
+    public class AppLog:LongEntityBase
     {
-        [Key]
-        public long Id { get; set; }
         public bool IsRead { get; set; }
-        [Required]
-        public DateTimeOffset DateTime { get; set; }
-
         [Required]
         [MaxLength(50)]
         public string User { get; set; }

@@ -3,7 +3,7 @@ using System.Linq.Expressions;
 
 namespace Data.Local.Common
 {
-    public class DataRequest<T>
+    public class DataRequest<T>  
     {
         public string Query { get; set; }
 

@@ -16,5 +16,6 @@ namespace CommonLibrary
         void Inital();
         void OnLoad();
         void UnLoad();
+        void Smoke();
     }
 }

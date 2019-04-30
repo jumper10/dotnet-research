@@ -1,4 +1,5 @@
-﻿using GalaSoft.MvvmLight.Ioc;
+﻿using Data.Local.Services;
+using GalaSoft.MvvmLight.Ioc;
 using GalaSoft.MvvmLight.Views;
 using System;
 using System.Collections.Generic;
@@ -20,7 +21,5 @@ namespace UwpApp.ViewModels
             NavigationService = SimpleIoc.Default.GetInstance<NavigationService>(ViewModelLocator.MainShellNav);
             AppNavigationService = SimpleIoc.Default.GetInstance<NavigationService>(ViewModelLocator.AppNav);
         }
-
-       
     }
 }

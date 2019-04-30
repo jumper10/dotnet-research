@@ -50,6 +50,7 @@ namespace UwpApp.ViewModels
 
         public async void AddFile()
         {
+            await AppLogService.CreateItemAsync(new AppLog { Action="xx",User="--",Message="add file",Source=string.Empty});
             var file = await FileHelper.SelectFileAsync();
             if (file != null)
             {

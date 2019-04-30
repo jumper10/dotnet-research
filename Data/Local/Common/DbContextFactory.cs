@@ -1,6 +1,7 @@
 ﻿using CommonLibrary.Utils;
 using Data.Local.Contexts;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Design;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
@@ -9,7 +10,8 @@ using System.Text;
 
 namespace Data.Local.Common
 {
-    public class DbContextFactory
+    public class DbContextFactory: IDesignTimeDbContextFactory<AppDBContext>,
+        IDesignTimeDbContextFactory<AppLogDbContext>
     {
         static readonly ConcurrentDictionary<DbContextType, string> _DbContexts;
 
@@ -19,6 +21,7 @@ namespace Data.Local.Common
             {
                 using(var dbContext = GetDbContext(db.Key))
                 {
+                    dbContext.Database.EnsureCreated();
                     dbContext.Database.Migrate();
                 }
             }
@@ -27,10 +30,18 @@ namespace Data.Local.Common
         static DbContextFactory()
         {
             _DbContexts = new ConcurrentDictionary<DbContextType, string>();
-            _DbContexts[DbContextType.AppLog] = PathUtil.CombinePath(PathUtil.GetAppDataPath(), "app.bat"); ;
-            _DbContexts[DbContextType.App] = PathUtil.CombinePath(PathUtil.GetAppDataPath(), "app_log.bat");
+            _DbContexts[DbContextType.AppLog] =$"Filename = {PathUtil.CombinePath(PathUtil.GetAppDataPath(), "app_log.bat")}";
+            _DbContexts[DbContextType.App] = $"Filename ={PathUtil.CombinePath(PathUtil.GetAppDataPath(), "app_data.bat")}";
         }
 
+        public string GetDataBaseLocation(DbContextType contextType = DbContextType.App)
+        {
+            if (_DbContexts.ContainsKey(contextType))
+            {
+                return _DbContexts[contextType];
+            }
+            return null;
+        }
         public DbContext GetDbContext(DbContextType contextType = DbContextType.App)
         {
             switch (contextType)
@@ -42,6 +53,22 @@ namespace Data.Local.Common
                 default:
                     return new AppDBContext(_DbContexts[DbContextType.App]);
             }
+        }
+
+        public AppDBContext CreateDbContext(string[] args)
+        {
+            var optionsBuilder = new DbContextOptionsBuilder<AppDBContext>();
+            optionsBuilder.UseSqlite("Data Source=app_data.db");
+
+            return new AppDBContext(optionsBuilder.Options);
+        }
+
+        AppLogDbContext IDesignTimeDbContextFactory<AppLogDbContext>.CreateDbContext(string[] args)
+        {
+            var optionsBuilder = new DbContextOptionsBuilder<AppLogDbContext>();
+            optionsBuilder.UseSqlite("Data Source=blog.db");
+
+            return new AppLogDbContext(optionsBuilder.Options);
         }
     }
 

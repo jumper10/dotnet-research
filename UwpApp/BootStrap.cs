@@ -1,4 +1,6 @@
 ﻿using CommonLibrary;
+using CommonLibrary.Utils;
+using Data;
 using Data.Local.Common;
 using GalaSoft.MvvmLight.Ioc;
 using GalaSoft.MvvmLight.Threading;
@@ -11,7 +13,9 @@ using System.Text;
 using System.Threading.Tasks;
 using UwpApp.ViewModels;
 using UwpApp.Views;
+using ViewModels;
 using Windows.ApplicationModel.Activation;
+using Windows.Storage;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -19,10 +23,13 @@ using Windows.UI.Xaml.Navigation;
 
 namespace UwpApp
 {
-    class BootStrap
+    class BootStrap: IBootStrap
     {
+        private IList<IModule> _modules = new List<IModule>();
+
         public void Run(LaunchActivatedEventArgs e)
         {
+            ApplyFolderAuthAsync();
             Config();
             Migrate();
             InitShell(e);
@@ -95,6 +102,7 @@ namespace UwpApp
 
         void Config()
         {
+            LoadModules();
             ModuleManager.ConfigAllModules();
         }
 
@@ -114,5 +122,21 @@ namespace UwpApp
             dbFactory.Migrate();
         }
 
+        public void LoadModules()
+        {
+            new DataModule().Smoke();
+            new ViewModelModule().Smoke();
+            new UwpAppModule().Smoke();
+        }
+
+        async void ApplyFolderAuthAsync()
+        {
+            var dataPath = await StorageFolder.GetFolderFromPathAsync(PathUtil.GetAppDataPath());
+            Windows.Storage.AccessCache.StorageApplicationPermissions
+                    .FutureAccessList.AddOrReplace(dataPath.DisplayName, dataPath);
+            dataPath = await StorageFolder.GetFolderFromPathAsync(PathUtil.GetAppAssetsPath());
+            Windows.Storage.AccessCache.StorageApplicationPermissions
+                    .FutureAccessList.AddOrReplace(dataPath.DisplayName, dataPath);
+        }
     }
 }

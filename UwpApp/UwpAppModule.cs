@@ -20,7 +20,7 @@ namespace UwpApp
     {
         static UwpAppModule()
         {
-            SimpleIoc.Default.Register<IModule, UwpAppModule>();
+            SimpleIoc.Default.Register<IModule>(() => new UwpAppModule(), typeof(UwpAppModule).Name);
         }
 
         public override void Inital()

@@ -10,7 +10,7 @@ namespace ViewModels
     {
         static ViewModelModule()
         {
-            SimpleIoc.Default.Register<IModule, ViewModelModule>();
+            SimpleIoc.Default.Register<IModule>(()=>new ViewModelModule(), typeof(ViewModelModule).Name);
         }
 
         public override void Inital()

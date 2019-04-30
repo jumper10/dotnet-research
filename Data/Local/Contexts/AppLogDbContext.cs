@@ -11,9 +11,14 @@ namespace Data.Local.Contexts
 {
     public class AppLogDbContext:DbContext
     {
-        private string _connetionString = null;
+        private string _connetionString  = "Data Source=app_log.bat";
 
-        public AppLogDbContext(string connectionString)
+        public AppLogDbContext(DbContextOptions<AppLogDbContext> optionsBuilder)
+        {
+           
+        }
+
+        public AppLogDbContext(string connectionString= "Data Source=app_log.bat")
         {
             _connetionString = connectionString;
         }
@@ -115,7 +120,7 @@ namespace Data.Local.Contexts
 
         public async Task<int> CreateLogAsync(AppLog appLog)
         {
-            appLog.DateTime = DateTime.UtcNow;
+            appLog.CreateDate = DateTime.UtcNow;
             Entry(appLog).State = EntityState.Added;
             return await SaveChangesAsync();
         }

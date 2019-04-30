@@ -23,5 +23,7 @@ namespace CommonLibrary
         {
            
         }
+
+        public virtual void  Smoke() { }
     }
 }

@@ -6,8 +6,9 @@ using System.Text;
 
 namespace Data.Local.Data
 {
-    public abstract class Media :LongEntity
+    public class Media : LongEntityBase
     {
+        public Media() { }
         [Required]
         [MaxLength(300)]
         public string FilePath { get; set; }

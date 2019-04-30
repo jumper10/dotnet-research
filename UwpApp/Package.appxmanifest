@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Package xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10" xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest" xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10" xmlns:uap3="http://schemas.microsoft.com/appx/manifest/uap/windows10/3" xmlns:uap6="http://schemas.microsoft.com/appx/manifest/uap/windows10/6" IgnorableNamespaces="uap mp uap3 uap6">
+<Package xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10" xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest" xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10" xmlns:uap3="http://schemas.microsoft.com/appx/manifest/uap/windows10/3" xmlns:uap6="http://schemas.microsoft.com/appx/manifest/uap/windows10/6" xmlns:iot="http://schemas.microsoft.com/appx/manifest/iot/windows10" IgnorableNamespaces="uap mp uap3 uap6 iot">
   <Identity Name="143fa9aa-c50c-49d7-a06a-9aa9c51a7efb" Publisher="CN=Administrator" Version="1.0.0.0" />
   <mp:PhoneIdentity PhoneProductId="143fa9aa-c50c-49d7-a06a-9aa9c51a7efb" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
   <Properties>
@@ -30,6 +30,7 @@
     <uap3:Capability Name="backgroundMediaPlayback" />
     <uap6:Capability Name="graphicsCapture" />
     <uap:Capability Name="objects3D" />
+    <iot:Capability Name="systemManagement" />
     <DeviceCapability Name="gazeInput" />
   </Capabilities>
 </Package>

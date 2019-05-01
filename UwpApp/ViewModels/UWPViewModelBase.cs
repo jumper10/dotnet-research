@@ -1,5 +1,4 @@
-﻿using Data.Local.Services;
-using GalaSoft.MvvmLight.Ioc;
+﻿using GalaSoft.MvvmLight.Ioc;
 using GalaSoft.MvvmLight.Views;
 using System;
 using System.Collections.Generic;

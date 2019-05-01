@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
 
-namespace Data.Local.Common
+namespace DataAccess.Local.Common
 {
     public abstract class EntityBase<T>
     { 

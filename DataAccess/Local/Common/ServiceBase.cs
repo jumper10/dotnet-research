@@ -1,6 +1,5 @@
 ﻿using CommonLibrary;
-using Data.Local.Common;
-using Data.Local.Contexts;
+
 using GalaSoft.MvvmLight.Ioc;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -9,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Data.Local.Common
+namespace DataAccess.Local.Common
 {
     public abstract class ServiceBase<T, TKey> where T : EntityBase<TKey>, new()
     {

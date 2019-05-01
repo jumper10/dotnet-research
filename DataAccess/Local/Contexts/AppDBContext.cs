@@ -1,10 +1,10 @@
-﻿using Data.Local.Data;
+﻿using DataAccess.Local.Data;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Data.Local.Contexts
+namespace DataAccess.Local.Contexts
 {
     public class AppDBContext: DbContext
     {

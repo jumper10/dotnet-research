@@ -1,13 +1,13 @@
 ﻿using CommonLibrary;
-using Data.Local.Common;
-using Data.Local.Data;
-using Data.Local.Services;
+using DataAccess.Local.Common;
+using DataAccess.Local.Data;
+using DataAccess.Local.Services;
 using GalaSoft.MvvmLight.Ioc;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Data
+namespace DataAccess
 {
     public class DataModule : Module
     {

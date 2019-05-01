@@ -1,5 +1,5 @@
 ﻿
-using Data.Local.Data;
+using DataAccess.Local.Data;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Threading;
 using GalaSoft.MvvmLight.Views;

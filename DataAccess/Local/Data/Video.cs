@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Data.Local.Data
+namespace DataAccess.Local.Data
 {
     public class Video:Media
     {

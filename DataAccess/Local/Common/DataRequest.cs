@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq.Expressions;
 
-namespace Data.Local.Common
+namespace DataAccess.Local.Common
 {
     public class DataRequest<T>  
     {

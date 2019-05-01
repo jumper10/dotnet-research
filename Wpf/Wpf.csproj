@@ -240,9 +240,9 @@
       <Project>{a77481b6-4364-4e4e-897a-069502e7b217}</Project>
       <Name>CommonLibrary</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Data\Data.csproj">
-      <Project>{df08e54b-8e81-45d6-9c1b-fe6c164e2967}</Project>
-      <Name>Data</Name>
+    <ProjectReference Include="..\DataAccess\DataAccess.csproj">
+      <Project>{55fdc2ae-eadb-43b2-8b94-43505bc2658c}</Project>
+      <Name>DataAccess</Name>
     </ProjectReference>
     <ProjectReference Include="..\ViewModels\ViewModels.csproj">
       <Project>{7c1aaa7f-72eb-4f04-95f3-ebcf317c8a92}</Project>

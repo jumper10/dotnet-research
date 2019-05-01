@@ -1,4 +1,4 @@
-﻿using Data.Local.Data;
+﻿using DataAccess.Local.Data;
 using GalaSoft.MvvmLight.Command;
 using System;
 using System.Collections.Generic;

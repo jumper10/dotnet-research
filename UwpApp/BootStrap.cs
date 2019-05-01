@@ -1,7 +1,7 @@
 ﻿using CommonLibrary;
 using CommonLibrary.Utils;
-using Data;
-using Data.Local.Common;
+using DataAccess;
+using DataAccess.Local.Common;
 using GalaSoft.MvvmLight.Ioc;
 using GalaSoft.MvvmLight.Threading;
 using GalaSoft.MvvmLight.Views;
@@ -29,7 +29,6 @@ namespace UwpApp
 
         public void Run(LaunchActivatedEventArgs e)
         {
-            ApplyFolderAuthAsync();
             Config();
             Migrate();
             InitShell(e);
@@ -127,16 +126,6 @@ namespace UwpApp
             new DataModule().Smoke();
             new ViewModelModule().Smoke();
             new UwpAppModule().Smoke();
-        }
-
-        async void ApplyFolderAuthAsync()
-        {
-            var dataPath = await StorageFolder.GetFolderFromPathAsync(PathUtil.GetAppDataPath());
-            Windows.Storage.AccessCache.StorageApplicationPermissions
-                    .FutureAccessList.AddOrReplace(dataPath.DisplayName, dataPath);
-            dataPath = await StorageFolder.GetFolderFromPathAsync(PathUtil.GetAppAssetsPath());
-            Windows.Storage.AccessCache.StorageApplicationPermissions
-                    .FutureAccessList.AddOrReplace(dataPath.DisplayName, dataPath);
         }
     }
 }

@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using UwpApp.Comon;
 using UwpApp.ViewModels;
 using UwpApp.Views;
 using Windows.ApplicationModel.Activation;
@@ -28,6 +29,8 @@ namespace UwpApp
             base.Inital();
             RegistAppNavService();
             SimpleIoc.Default.Register<NavigationService>();
+            SimpleIoc.Default.Register<IAppFolder, AppFolder>();
+             
 
             DispatcherHelper.Initialize();
         }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GalaSoft.MvvmLight.Ioc;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
@@ -7,42 +8,20 @@ namespace CommonLibrary.Utils
 {
     public class PathUtil
     {
-        public static string GetAppPath()
+        static IAppFolder appFolder;
+
+        static PathUtil()
         {
-            return AppContext.BaseDirectory;
+            try
+            {
+                appFolder = SimpleIoc.Default.GetInstance<IAppFolder>();
+            }
+            catch { }
         }
 
-        public static string GetAppBaseDirectory(bool withoutAppx=false)
+        public static string GetAppLocalPath()
         {
-            var baseDir = AppDomain.CurrentDomain.BaseDirectory;
-            if (withoutAppx)
-            {
-                if (baseDir.EndsWith(@"\AppX\") || baseDir.EndsWith(@"\AppX"))
-                {
-                    var dirInfo = Directory.GetParent(baseDir);
-                    return dirInfo.FullName;
-                }
-            }
-            return baseDir;
-        }
-
-        public static string GetAppDataPath(bool autoCreate=false)
-        {
-            var path = Path.Combine(GetAppBaseDirectory(true), "Data");
-            if (autoCreate && !Directory.Exists(path))
-            {
-                Directory.CreateDirectory(path);
-            }
-            return path;
-        }
-        public static string GetAppAssetsPath(bool autoCreate = false)
-        {
-            var path = Path.Combine(GetAppBaseDirectory(true), "Assets");
-            if (autoCreate && !Directory.Exists(path))
-            {
-                Directory.CreateDirectory(path);
-            }
-            return path;
+            return appFolder==null? AppDomain.CurrentDomain.BaseDirectory: appFolder.AppLocalFolder;
         }
 
         public static string CombinePath(params string[] paths)
@@ -50,24 +29,14 @@ namespace CommonLibrary.Utils
             return Path.Combine(paths);
         }
 
-        public static string CombineOnAppPath(params string[] paths)
+        public static string CombineOnAppLocalPath(params string[] paths)
         {
-            var path = Path.Combine(GetAppPath(), Path.Combine(paths));
+            var path = Path.Combine(GetAppLocalPath(), Path.Combine(paths));
             if (!Directory.Exists(path))
             {
                 Directory.CreateDirectory(path);
             }
             return path;
         }
-        public static string CombineOnAppDataPath(params string[] paths)
-        {
-            var path = Path.Combine(GetAppDataPath(), Path.Combine(paths));
-            if (!Directory.Exists(path))
-            {
-                Directory.CreateDirectory(path);
-            }
-            return path;
-        }
-
     }
 }

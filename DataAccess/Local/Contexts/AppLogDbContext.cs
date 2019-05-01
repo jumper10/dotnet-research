@@ -1,13 +1,13 @@
 ﻿using CommonLibrary;
-using Data.Local.Common;
-using Data.Local.Data;
+using DataAccess.Local.Common;
+using DataAccess.Local.Data;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Data.Local.Contexts
+namespace DataAccess.Local.Contexts
 {
     public class AppLogDbContext:DbContext
     {

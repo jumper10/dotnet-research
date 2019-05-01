@@ -96,6 +96,7 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="BootStrap.cs" />
+    <Compile Include="Comon\AppFolder.cs" />
     <Compile Include="Comon\ApplicationContext.cs" />
     <Compile Include="Comon\AttachPropertyUtil.cs" />
     <Compile Include="Comon\FileHelper.cs" />
@@ -265,9 +266,9 @@
       <Project>{a77481b6-4364-4e4e-897a-069502e7b217}</Project>
       <Name>CommonLibrary</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Data\Data.csproj">
-      <Project>{df08e54b-8e81-45d6-9c1b-fe6c164e2967}</Project>
-      <Name>Data</Name>
+    <ProjectReference Include="..\DataAccess\DataAccess.csproj">
+      <Project>{55FDC2AE-EADB-43B2-8B94-43505BC2658C}</Project>
+      <Name>DataAccess</Name>
     </ProjectReference>
     <ProjectReference Include="..\ViewModels\ViewModels.csproj">
       <Project>{7c1aaa7f-72eb-4f04-95f3-ebcf317c8a92}</Project>

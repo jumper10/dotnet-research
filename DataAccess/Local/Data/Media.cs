@@ -1,10 +1,10 @@
-﻿using Data.Local.Common;
+﻿using DataAccess.Local.Common;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
 
-namespace Data.Local.Data
+namespace DataAccess.Local.Data
 {
     public class Media : LongEntityBase
     {

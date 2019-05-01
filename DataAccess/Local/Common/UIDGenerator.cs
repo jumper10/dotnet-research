@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Data.Local.Common
+namespace DataAccess.Local.Common
 {
     static class UIDGenerator
     {

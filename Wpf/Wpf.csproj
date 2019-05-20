@@ -173,6 +173,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="BaseControl\UCSlider.xaml.cs">
+      <DependentUpon>UCSlider.xaml</DependentUpon>
+    </Compile>
     <Compile Include="BootStrap.cs" />
     <Compile Include="Common\RelayCommand.cs" />
     <Compile Include="Common\ResourceUtil.cs" />
@@ -187,6 +190,10 @@
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
     <Compile Include="WpfModule.cs" />
+    <Page Include="BaseControl\UCSlider.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

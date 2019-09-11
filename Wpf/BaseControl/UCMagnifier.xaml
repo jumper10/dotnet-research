@@ -1,0 +1,30 @@
+﻿<UserControl x:Class="Wpf_research.UCMagnifier"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" x:Name="ucSelf"
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Canvas x:Name="Canvas">
+        <!--Source="{Binding ImageSource,ElementName=ucSelf,UpdateSourceTrigger=PropertyChanged}"-->
+        <Image x:Name="baseImage"  Source="C:\Users\Administrator\Desktop\132125121008133576.jpg"
+               Width="{Binding ActualWidth,ElementName=ucSelf}"
+               Height="{Binding ActualHeight,ElementName=ucSelf}"
+               HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+               PreviewMouseMove="BaseImage_MouseMove"
+               Stretch="Uniform"
+               Cursor="Hand"></Image>
+        <Border x:Name="Magnifier" BorderThickness="1" BorderBrush="AntiqueWhite"
+                CornerRadius="{Binding CornerRadius,ElementName=ucSelf}" Width="{Binding MagnifierWidth,ElementName=ucSelf}" 
+                Height="{Binding MagnifierHeight,ElementName=ucSelf}">
+            <Border.Background>
+                <VisualBrush x:Name="MagnifierBrush" Visual="{Binding ElementName=baseImage}" 
+                              ViewboxUnits="Absolute">
+                    <VisualBrush.Transform>
+                        <ScaleTransform ScaleX="{Binding ZoomFactor,ElementName=ucSelf}" ScaleY="{Binding ZoomFactor,ElementName=ucSelf}" />
+                    </VisualBrush.Transform>
+                </VisualBrush>
+            </Border.Background>
+        </Border>
+    </Canvas>
+</UserControl>

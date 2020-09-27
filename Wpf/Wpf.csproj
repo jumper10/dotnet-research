@@ -187,6 +187,7 @@
       <DependentUpon>UCSlider.xaml</DependentUpon>
     </Compile>
     <Compile Include="BootStrap.cs" />
+    <Compile Include="Common\ImageAttach.cs" />
     <Compile Include="Common\RelayCommand.cs" />
     <Compile Include="Common\ResourceUtil.cs" />
     <Compile Include="Player\UCPlayer.xaml.cs">

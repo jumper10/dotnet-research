@@ -8,11 +8,11 @@
         Title="MainWindow" Height="450" Width="800">
     <Grid>
         <!--<local:UCTreeView/>-->
-        <!--<local:UCImage/>-->
+        <local:UCImage/>
         <!--<local:UCMagnifier ImageSource="C:\Users\Administrator\Desktop\132125121008133576.jpg" ZoomFactor="2.8"/>-->
         <!--<Image Source="C:\Users\Administrator\Desktop\132125121008133576.jpg"/>-->
 
-        <local:DirectionPicker/>
+        <!--<local:DirectionPicker/>-->
 
     </Grid>
 </Window>

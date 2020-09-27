@@ -1,0 +1,69 @@
+﻿<UserControl x:Class="Wpf_research.BaseControl.UCLoading"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Wpf_research.BaseControl"
+              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             mc:Ignorable="d" IsVisibleChanged="UserControl_IsVisibleChanged"
+             Height="70" Width="70">
+
+    <UserControl.Triggers>
+        
+    </UserControl.Triggers>
+    
+    <UserControl.Resources>
+        <SolidColorBrush x:Key="Color_Font_Primary" Color="BlueViolet"/>
+        <Storyboard x:Key="round">
+            <DoubleAnimationUsingKeyFrames  BeginTime="0:0:0" Duration="0:0:1.5" 
+                                            RepeatBehavior="Forever" 
+                                            Storyboard.TargetName="Canvas"
+                                            Storyboard.TargetProperty="(UIElement.RenderTransform).Angle">
+                <SplineDoubleKeyFrame Value="180"/>
+                <SplineDoubleKeyFrame Value="360"/>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+        
+        
+    </UserControl.Resources>
+
+    <Canvas x:Name="Canvas" >
+        
+        <Canvas.RenderTransform>
+            <RotateTransform  />
+        </Canvas.RenderTransform>
+
+        <Ellipse x:Name="C0" Width="14" Height="14"  
+                         Canvas.Left="0"  
+                         Canvas.Top="0" Stretch="Fill"  
+                         Fill="{StaticResource Color_Font_Primary}" Opacity="1.0"/>
+        <Ellipse x:Name="C1" Width="13" Height="13"  
+                         Canvas.Left="0"  
+                         Canvas.Top="0" Stretch="Fill"  
+                         Fill="{StaticResource Color_Font_Primary}" Opacity="0.9"/>
+        <Ellipse x:Name="C2" Width="12" Height="13"  
+                         Canvas.Left="0"  
+                         Canvas.Top="0" Stretch="Fill"  
+                         Fill="{StaticResource Color_Font_Primary}" Opacity="0.8"/>
+        <Ellipse x:Name="C3" Width="11" Height="11"  
+                         Canvas.Left="0"  
+                         Canvas.Top="0" Stretch="Fill"  
+                         Fill="{StaticResource Color_Font_Primary}" Opacity="0.7"/>
+        <Ellipse x:Name="C4" Width="10" Height="10"  
+                         Canvas.Left="0"  
+                         Canvas.Top="0" Stretch="Fill"  
+                         Fill="{StaticResource Color_Font_Primary}" Opacity="0.6"/>
+        <Ellipse x:Name="C5" Width="9" Height="9"  
+                         Canvas.Left="0"  
+                         Canvas.Top="0" Stretch="Fill"  
+                         Fill="{StaticResource Color_Font_Primary}" Opacity="0.5"/>
+        <Ellipse x:Name="C6" Width="8" Height="8"  
+                         Canvas.Left="0"  
+                         Canvas.Top="0" Stretch="Fill"  
+                         Fill="{StaticResource Color_Font_Primary}" Opacity="0.4"/>
+        <Ellipse x:Name="C7" Width="7" Height="7"  
+                         Canvas.Left="0"  
+                         Canvas.Top="0" Stretch="Fill"  
+                         Fill="{StaticResource Color_Font_Primary}" Opacity="0.3"/>
+    </Canvas>
+</UserControl>

@@ -180,6 +180,9 @@
     <Compile Include="BaseControl\UCImage.xaml.cs">
       <DependentUpon>UCImage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="BaseControl\UCLoading.xaml.cs">
+      <DependentUpon>UCLoading.xaml</DependentUpon>
+    </Compile>
     <Compile Include="BaseControl\UCMagnifier.xaml.cs">
       <DependentUpon>UCMagnifier.xaml</DependentUpon>
     </Compile>
@@ -206,6 +209,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="BaseControl\UCImage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="BaseControl\UCLoading.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
